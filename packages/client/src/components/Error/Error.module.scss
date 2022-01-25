@@ -1,0 +1,14 @@
+@use '../../scss' as *;
+
+.error {
+    @include flex-jc-ai-c;
+
+    width: 100%;
+    background-color: var(--color-primary);
+    text-align: center;
+    padding: 0.8rem;
+    margin: 0 auto 1.5rem auto;
+    font-size: 0.8rem;
+    border-radius: 1rem;
+    font-family: RobotoMono-Bold, sans-serif;
+}

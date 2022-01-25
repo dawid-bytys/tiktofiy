@@ -1,0 +1,61 @@
+@use './scss' as *;
+
+*,
+::before,
+::after {
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    font-family: RobotoMono-Regular, sans-serif;
+}
+
+.preload * {
+    transition: none !important;
+}
+
+button {
+    background-color: transparent;
+    padding: 0;
+    border: 0;
+    cursor: pointer;
+
+    &:focus {
+        outline: 0;
+    }
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+input {
+    border: 0;
+
+    &:focus {
+        outline: 0;
+    }
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

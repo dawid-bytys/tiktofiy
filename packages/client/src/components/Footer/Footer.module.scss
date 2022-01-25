@@ -1,0 +1,18 @@
+@use '../../scss' as *;
+
+.footer {
+    @include flex-jc-ai-c;
+
+    gap: 1rem;
+    padding: 1.5rem;
+}
+
+.icon {
+    font-size: 1.2rem;
+    color: var(--color-sub);
+}
+
+.version {
+    font-size: 0.7rem;
+    font-family: RobotoMono-Medium, sans-serif;
+}
