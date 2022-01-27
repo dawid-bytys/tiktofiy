@@ -2,7 +2,7 @@ import axios from 'axios';
 import type { NextFunction, Response, Request } from 'express';
 
 export const errorHandler = (err: unknown, _req: Request, res: Response, _next: NextFunction) => {
-    console.error(err);
+    process.env.NODE_ENV !== 'testing' && console.error(err);
 
     if (axios.isAxiosError(err)) {
         return res.status(400).send({

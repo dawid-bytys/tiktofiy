@@ -4,3 +4,5 @@ dist
 build
 yarn-error.log
 .DS_Store
+*.mp3
+*.mp4

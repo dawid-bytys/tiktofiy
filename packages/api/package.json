@@ -1,21 +1,20 @@
 {
     "name": "@tiktofiy/api",
     "version": "1.0.0",
-    "main": "app.js",
+    "main": "./dist/app.js",
     "license": "MIT",
     "scripts": {
-        "start": "NODE_ENV=production node ./dist/app.js",
+        "start": "NODE_ENV=production node .",
         "dev": "NODE_ENV=development nodemon ./src/app.ts",
         "build": "tsc",
         "cleanup": "rm -rf dist",
-        "test:unit": "jest --watchAll ./src/utils/validation.spec.ts",
-        "test:cov": "jest --coverage"
+        "test:unit": "NODE_ENV=testing jest --watchAll",
+        "test:cov": "NODE_ENV=testing jest --coverage"
     },
     "dependencies": {
         "@ffmpeg-installer/ffmpeg": "^1.1.0",
         "@prisma/client": "^3.8.1",
         "@tiktofiy/common": "^1.0.0",
-        "axios": "^0.25.0",
         "express": "^4.17.2",
         "fluent-ffmpeg": "^2.1.2",
         "path": "^0.12.7",

@@ -11,21 +11,23 @@ export const audioRecognize = async (req: Request, res: Response, next: NextFunc
     }
 
     try {
-        const storedTiktok = await getStoredTiktok(url);
-        if (storedTiktok) {
-            return res.status(200).send({
-                found: true,
-                artist: storedTiktok.artist,
-                title: storedTiktok.title,
-                albumImage: storedTiktok.albumImage,
-            });
+        if (process.env.NODE_ENV !== 'testing') {
+            const storedTiktok = await getStoredTiktok(url);
+            if (storedTiktok) {
+                return res.status(200).send({
+                    found: true,
+                    artist: storedTiktok.artist,
+                    title: storedTiktok.title,
+                    albumImage: storedTiktok.albumImage,
+                });
+            }
         }
 
         const audio = await getAudioBase64(url, start, end);
         const recognizedAudio = await recognizeAudio(audio, shazamApiKey);
 
         // If the song has been recognized, save it to the database
-        if (isSongFound(recognizedAudio)) {
+        if (process.env.NODE_ENV !== 'testing' && isSongFound(recognizedAudio)) {
             await storeTiktok({
                 url: url,
                 artist: recognizedAudio.artist,

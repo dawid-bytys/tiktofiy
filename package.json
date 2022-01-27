@@ -1,7 +1,7 @@
 {
     "name": "tiktofiy",
     "private": true,
-    "version": "independent",
+    "version": "1.0.0",
     "author": "Dawid Bytys (salvia-dev)",
     "license": "MIT",
     "workspaces": [
@@ -9,9 +9,10 @@
     ],
     "scripts": {
         "bootstrap": "lerna bootstrap --use-workspaces",
-        "start": "NODE_ENV=production yarn workspace @tiktofiy/common tsc && yarn workspace @tiktofiy/api start",
-        "client:build": "yarn workspace @tiktofiy/client craco build",
-        "client:start": "yarn workspace @tiktofiy/client craco start",
+        "start": "NODE_ENV=production yarn workspace @tiktofiy/api start",
+        "build": "yarn api:build && yarn client:build",
+        "client:build": "yarn workspace @tiktofiy/client build",
+        "client:start": "yarn workspace @tiktofiy/client start",
         "api:build": "yarn workspace @tiktofiy/api build",
         "api:dev": "NODE_ENV=development yarn workspace @tiktofiy/api dev",
         "api:cleanup": "yarn workspace @tiktofiy/api cleanup",
