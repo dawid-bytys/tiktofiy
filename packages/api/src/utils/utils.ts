@@ -1,5 +1,5 @@
 export const returnPath = (filename: string) => {
-    return `src/mp3/${filename}`;
+    return `src/media/${filename}`;
 };
 
 export const isUrlValid = (url: string) => {

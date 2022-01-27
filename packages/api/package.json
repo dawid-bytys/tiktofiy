@@ -1,7 +1,7 @@
 {
     "name": "@tiktofiy/api",
     "version": "1.0.0",
-    "main": "./dist/app.js",
+    "main": "index.js",
     "license": "MIT",
     "scripts": {
         "start": "NODE_ENV=production node .",

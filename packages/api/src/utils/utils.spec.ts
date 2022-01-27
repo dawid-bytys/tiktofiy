@@ -27,6 +27,6 @@ describe('UTILS VALIDATION', () => {
     it('it should return a correct path', () => {
         const path = returnPath('video.mp3');
 
-        expect(path).toEqual('src/mp3/video.mp3');
+        expect(path).toEqual('src/media/video.mp3');
     });
 });

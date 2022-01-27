@@ -3,6 +3,7 @@ import { getAudioBase64, recognizeAudio } from '../services/audio.service';
 import { getStoredTiktok, storeTiktok } from '../services/db.service';
 import { isUrlValid } from '../utils/utils';
 import { isSongFound, Body } from '@tiktofiy/common';
+import { isTest } from '../config';
 
 export const audioRecognize = async (req: Request, res: Response, next: NextFunction) => {
     const { url, shazamApiKey, start, end }: Body = req.body;
@@ -11,7 +12,7 @@ export const audioRecognize = async (req: Request, res: Response, next: NextFunc
     }
 
     try {
-        if (process.env.NODE_ENV !== 'testing') {
+        if (!isTest) {
             const storedTiktok = await getStoredTiktok(url);
             if (storedTiktok) {
                 return res.status(200).send({
@@ -27,7 +28,7 @@ export const audioRecognize = async (req: Request, res: Response, next: NextFunc
         const recognizedAudio = await recognizeAudio(audio, shazamApiKey);
 
         // If the song has been recognized, save it to the database
-        if (process.env.NODE_ENV !== 'testing' && isSongFound(recognizedAudio)) {
+        if (!isTest && isSongFound(recognizedAudio)) {
             await storeTiktok({
                 url: url,
                 artist: recognizedAudio.artist,
