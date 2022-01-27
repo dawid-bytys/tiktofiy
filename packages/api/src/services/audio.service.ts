@@ -106,7 +106,7 @@ export const recognizeAudio = async (
         headers: {
             'content-type': 'text/plain',
             'x-rapidapi-host': 'shazam.p.rapidapi.com',
-            'x-rapidapi-key': shazamApiKey || process.env.SHAZAM_API_KEY || '',
+            'x-rapidapi-key': shazamApiKey || process.env.SHAZAM_API_KEY,
         },
     });
     if (typeof response.data.track === 'undefined') {

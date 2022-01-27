@@ -105,7 +105,7 @@ describe('[POST] - /recognize', () => {
         expect(response.body.message).toEqual('You are not subscribed to this API.');
     });
 
-    it.only('it should expect status 200, all songs have been recognized or not', async () => {
+    it('it should expect status 200, all songs have been recognized or not', async () => {
         const requests = SONGS_TO_RECOGNIZE.map(link => {
             return request(app).post('/api/v1/audio/recognize').send({
                 url: link,

@@ -11,12 +11,12 @@
         "bootstrap": "lerna bootstrap --use-workspaces",
         "start": "NODE_ENV=production yarn workspace @tiktofiy/api start",
         "build": "yarn api:build && yarn client:build",
+        "test": "yarn workspace @tiktofiy/api test",
         "client:build": "yarn workspace @tiktofiy/client build",
         "client:start": "yarn workspace @tiktofiy/client start",
         "api:build": "yarn workspace @tiktofiy/api build",
         "api:dev": "NODE_ENV=development yarn workspace @tiktofiy/api dev",
         "api:cleanup": "yarn workspace @tiktofiy/api cleanup",
-        "api:cov": "yarn workspace @tiktofiy/api test:cov",
         "api:unit": "yarn workspace @tiktofiy/api test:unit"
     },
     "devDependencies": {

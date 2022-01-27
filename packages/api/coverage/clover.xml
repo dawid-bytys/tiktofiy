@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1643241246460" clover="3.2.0">
-  <project timestamp="1643241246460" name="All files">
-    <metrics statements="124" coveredstatements="70" conditionals="28" coveredconditionals="7" methods="29" coveredmethods="5" elements="181" coveredelements="82" complexity="0" loc="124" ncloc="124" packages="6" files="10" classes="10"/>
+<coverage generated="1643277610689" clover="3.2.0">
+  <project timestamp="1643277610689" name="All files">
+    <metrics statements="126" coveredstatements="77" conditionals="30" coveredconditionals="9" methods="29" coveredmethods="5" elements="185" coveredelements="91" complexity="0" loc="126" ncloc="126" packages="6" files="10" classes="10"/>
     <package name="src">
       <metrics statements="21" coveredstatements="15" conditionals="4" coveredconditionals="1" methods="3" coveredmethods="0"/>
       <file name="app.ts" path="/Users/salvia/Documents/Projects/tiktofiy/packages/api/src/app.ts">
@@ -33,42 +33,42 @@
       </file>
     </package>
     <package name="src.controllers">
-      <metrics statements="19" coveredstatements="11" conditionals="8" coveredconditionals="2" methods="1" coveredmethods="1"/>
+      <metrics statements="19" coveredstatements="12" conditionals="8" coveredconditionals="3" methods="1" coveredmethods="1"/>
       <file name="audio.controller.ts" path="/Users/salvia/Documents/Projects/tiktofiy/packages/api/src/controllers/audio.controller.ts">
-        <metrics statements="19" coveredstatements="11" conditionals="8" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <metrics statements="19" coveredstatements="12" conditionals="8" coveredconditionals="3" methods="1" coveredmethods="1"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
         <line num="5" count="1" type="stmt"/>
         <line num="7" count="1" type="stmt"/>
-        <line num="8" count="7" type="stmt"/>
-        <line num="9" count="7" type="cond" truecount="2" falsecount="1"/>
-        <line num="10" count="0" type="stmt"/>
-        <line num="13" count="7" type="stmt"/>
-        <line num="14" count="7" type="cond" truecount="0" falsecount="1"/>
+        <line num="8" count="14" type="stmt"/>
+        <line num="9" count="14" type="cond" truecount="3" falsecount="0"/>
+        <line num="10" count="2" type="stmt"/>
+        <line num="13" count="12" type="stmt"/>
+        <line num="14" count="12" type="cond" truecount="0" falsecount="1"/>
         <line num="15" count="0" type="stmt"/>
         <line num="16" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="17" count="0" type="stmt"/>
-        <line num="26" count="7" type="stmt"/>
+        <line num="26" count="12" type="stmt"/>
         <line num="27" count="0" type="stmt"/>
         <line num="30" count="0" type="cond" truecount="0" falsecount="3"/>
         <line num="31" count="0" type="stmt"/>
         <line num="39" count="0" type="stmt"/>
-        <line num="41" count="7" type="stmt"/>
+        <line num="41" count="12" type="stmt"/>
       </file>
     </package>
     <package name="src.handlers">
-      <metrics statements="8" coveredstatements="6" conditionals="3" coveredconditionals="2" methods="1" coveredmethods="1"/>
+      <metrics statements="8" coveredstatements="7" conditionals="5" coveredconditionals="3" methods="1" coveredmethods="1"/>
       <file name="errorHandler.ts" path="/Users/salvia/Documents/Projects/tiktofiy/packages/api/src/handlers/errorHandler.ts">
-        <metrics statements="8" coveredstatements="6" conditionals="3" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <metrics statements="8" coveredstatements="7" conditionals="5" coveredconditionals="3" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
-        <line num="5" count="7" type="stmt"/>
-        <line num="7" count="7" type="cond" truecount="1" falsecount="1"/>
+        <line num="5" count="14" type="cond" truecount="1" falsecount="1"/>
+        <line num="7" count="14" type="cond" truecount="1" falsecount="1"/>
         <line num="8" count="0" type="stmt"/>
-        <line num="11" count="7" type="cond" truecount="1" falsecount="0"/>
-        <line num="12" count="7" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
+        <line num="11" count="14" type="cond" truecount="1" falsecount="0"/>
+        <line num="12" count="13" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
       </file>
     </package>
     <package name="src.routes">
@@ -89,7 +89,7 @@
       </file>
     </package>
     <package name="src.services">
-      <metrics statements="62" coveredstatements="25" conditionals="11" coveredconditionals="0" methods="22" coveredmethods="2"/>
+      <metrics statements="64" coveredstatements="30" conditionals="11" coveredconditionals="0" methods="22" coveredmethods="2"/>
       <file name="audio.service.ts" path="/Users/salvia/Documents/Projects/tiktofiy/packages/api/src/services/audio.service.ts">
         <metrics statements="45" coveredstatements="15" conditionals="11" coveredconditionals="0" methods="18" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
@@ -124,7 +124,7 @@
         <line num="75" count="0" type="stmt"/>
         <line num="78" count="0" type="stmt"/>
         <line num="84" count="1" type="stmt"/>
-        <line num="85" count="7" type="stmt"/>
+        <line num="85" count="12" type="stmt"/>
         <line num="86" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="87" count="0" type="stmt"/>
         <line num="90" count="0" type="stmt"/>
@@ -148,18 +148,20 @@
         <line num="15" count="0" type="stmt"/>
       </file>
       <file name="scrap.service.ts" path="/Users/salvia/Documents/Projects/tiktofiy/packages/api/src/services/scrap.service.ts">
-        <metrics statements="11" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
+        <metrics statements="13" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="5" count="1" type="stmt"/>
-        <line num="6" count="7" type="stmt"/>
-        <line num="9" count="7" type="stmt"/>
-        <line num="11" count="7" type="stmt"/>
-        <line num="20" count="7" type="stmt"/>
-        <line num="23" count="0" type="stmt"/>
-        <line num="25" count="0" type="stmt"/>
-        <line num="26" count="0" type="stmt"/>
+        <line num="6" count="12" type="stmt"/>
+        <line num="10" count="11" type="stmt"/>
+        <line num="12" count="11" type="stmt"/>
+        <line num="13" count="11" type="stmt"/>
+        <line num="22" count="11" type="stmt"/>
+        <line num="25" count="11" type="stmt"/>
+        <line num="27" count="11" type="stmt"/>
         <line num="28" count="0" type="stmt"/>
+        <line num="30" count="11" type="stmt"/>
+        <line num="34" count="11" type="stmt"/>
       </file>
     </package>
     <package name="src.utils">
@@ -169,9 +171,9 @@
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="0" type="stmt"/>
         <line num="5" count="2" type="stmt"/>
-        <line num="7" count="13" type="stmt"/>
-        <line num="8" count="13" type="stmt"/>
-        <line num="10" count="13" type="cond" truecount="2" falsecount="0"/>
+        <line num="7" count="20" type="stmt"/>
+        <line num="8" count="20" type="stmt"/>
+        <line num="10" count="20" type="cond" truecount="2" falsecount="0"/>
       </file>
     </package>
   </project>

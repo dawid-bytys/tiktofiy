@@ -8,8 +8,8 @@
         "dev": "NODE_ENV=development nodemon ./src/app.ts",
         "build": "tsc",
         "cleanup": "rm -rf dist",
-        "test:unit": "NODE_ENV=testing jest --watchAll",
-        "test:cov": "NODE_ENV=testing jest --coverage"
+        "test": "NODE_ENV=testing jest",
+        "test:unit": "NODE_ENV=testing jest --watchAll ./src/utils/*.spec.ts"
     },
     "dependencies": {
         "@ffmpeg-installer/ffmpeg": "^1.1.0",
