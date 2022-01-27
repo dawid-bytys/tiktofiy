@@ -2,7 +2,7 @@
 <br />
 
 <p align="center">
-    <img src="https://i.imgur.com/tFTpps9.png" alt="easybase logo black" width="20%">
+    <img src="https://i.imgur.com/tFTpps9.png" alt="easybase logo black" width="10%">
 </p>
 
 <br />
