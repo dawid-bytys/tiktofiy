@@ -11,7 +11,7 @@
         "bootstrap": "lerna bootstrap --use-workspaces",
         "start": "NODE_ENV=production yarn workspace @tiktofiy/api start",
         "build": "yarn common:build && yarn api:build && yarn client:build",
-        "heroku-prebuild": "yarn common:build && yarn api:build && yarn client:build && yarn prisma",
+        "heroku-postbuild": "yarn common:build && yarn api:build && yarn client:build && yarn prisma",
         "test": "yarn workspace @tiktofiy/api test",
         "prisma": "yarn workspace @tiktofiy/api prisma",
         "common:build": "yarn workspace @tiktofiy/common build",
