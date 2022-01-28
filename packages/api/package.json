@@ -9,6 +9,7 @@
         "build": "tsc",
         "cleanup": "rm -rf dist",
         "test": "NODE_ENV=testing jest",
+        "prisma": "yarn prisma generate",
         "test:unit": "NODE_ENV=testing jest --watchAll ./src/utils/*.spec.ts"
     },
     "dependencies": {
