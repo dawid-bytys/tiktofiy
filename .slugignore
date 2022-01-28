@@ -1,8 +1,0 @@
-*.spec.ts
-.eslintrc
-.prettierrc
-LICENSE
-README.md
-jest.config.js
-.prettierignore
-.eslintignore
