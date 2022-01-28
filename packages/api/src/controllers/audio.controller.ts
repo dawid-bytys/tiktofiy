@@ -12,7 +12,7 @@ export const audioRecognize = async (req: Request, res: Response, next: NextFunc
     }
 
     try {
-        if (!isTest) {
+        if (!isTest()) {
             const storedTiktok = await getStoredTiktok(url);
             if (storedTiktok) {
                 return res.status(200).send({
@@ -28,7 +28,7 @@ export const audioRecognize = async (req: Request, res: Response, next: NextFunc
         const recognizedAudio = await recognizeAudio(audio, shazamApiKey);
 
         // If the song has been recognized, save it to the database
-        if (!isTest && isSongFound(recognizedAudio)) {
+        if (!isTest() && isSongFound(recognizedAudio)) {
             await storeTiktok({
                 url: url,
                 artist: recognizedAudio.artist,
