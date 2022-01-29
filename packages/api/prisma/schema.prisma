@@ -13,5 +13,5 @@ model Songs {
   url        String @unique
   artist     String
   title      String
-  albumImage String
+  albumImage String?
 }

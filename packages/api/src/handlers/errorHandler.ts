@@ -1,13 +1,17 @@
-import axios from 'axios';
 import type { NextFunction, Response, Request } from 'express';
 import { isTest } from '../config';
+import { AudioDownloadError, PrismaSaveError, ShazamRequestError } from '../utils/errors';
 
 export const errorHandler = (err: unknown, _req: Request, res: Response, _next: NextFunction) => {
     !isTest() && console.error(err);
 
-    if (axios.isAxiosError(err)) {
-        return res.status(400).send({
-            message: err.response?.data.message,
+    if (err instanceof ShazamRequestError || err instanceof AudioDownloadError) {
+        return res.status(502).send({
+            message: err.message,
+        });
+    } else if (err instanceof PrismaSaveError) {
+        return res.status(503).send({
+            message: err.message,
         });
     } else if (err instanceof Error) {
         return res.status(400).send({
@@ -15,7 +19,7 @@ export const errorHandler = (err: unknown, _req: Request, res: Response, _next: 
         });
     }
 
-    return res.status(400).send({
-        message: 'Unexpected error has occured',
+    return res.status(500).send({
+        message: 'An unexpected error has occured',
     });
 };

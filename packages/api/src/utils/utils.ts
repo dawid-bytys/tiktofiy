@@ -1,5 +1,6 @@
 import crypto from 'crypto';
 import { unlink } from 'fs/promises';
+import { ClearMediaError } from './errors';
 
 export const returnPath = (filename: string) => {
     return `src/media/${filename}`;
@@ -31,6 +32,10 @@ export const getTikTokID = (url: string) => {
 export const clearMedia = async (files: string[]) => {
     const operations = files.map(file => unlink(returnPath(`${file}.mp3`)));
 
-    await Promise.all(operations);
-    console.log('Successfully cleared media');
+    try {
+        await Promise.all(operations);
+        console.log('Successfully cleared media');
+    } catch (err) {
+        throw new ClearMediaError('Failed to clear media');
+    }
 };

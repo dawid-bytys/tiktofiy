@@ -6,6 +6,15 @@ import fetch from 'node-fetch';
 import type { RecognitionResult } from '@tiktofiy/common';
 import { getTikTokID, returnPath } from '../utils/utils';
 import { SHAZAM_API_URL, TIKTOK_API_URL } from '../constants';
+import {
+    AudioConvertError,
+    AudioCutError,
+    AudioDownloadError,
+    AudioSaveError,
+    InvalidUrlFormatError,
+    ShazamRequestError,
+    TikTokUnavailableError,
+} from '../utils/errors';
 
 // Configure ffmpeg
 ffmpeg.setFfmpegPath(ffmpegPath.path);
@@ -16,7 +25,7 @@ export const getTikTokFinalURL = async (url: string) => {
 
     const tiktokId = getTikTokID(response.url);
     if (!tiktokId) {
-        throw new Error('Provide a valid format of TikTok url');
+        throw new InvalidUrlFormatError('Provide a valid format of TikTok url');
     }
 
     return TIKTOK_API_URL + tiktokId;
@@ -31,7 +40,7 @@ export const getTikTokAudioURL = async (url: string) => {
         },
     });
     if (response.data.statusCode === 10217) {
-        throw new Error('Provided TikTok is not currently available');
+        throw new TikTokUnavailableError('Provided TikTok is not currently available');
     }
 
     return response.data.itemInfo.itemStruct.music.playUrl as string;
@@ -50,11 +59,11 @@ export const downloadAudio = async (url: string, output: string) => {
                     resolve(console.log('Successfully downloaded the audio file'));
                 })
                 .on('error', () => {
-                    reject(new Error('Failed to save the audio file'));
+                    reject(new AudioSaveError('Failed to save the audio file'));
                 });
         });
     } catch (err) {
-        throw new Error('Failed to download the audio file, try again');
+        throw new AudioDownloadError('Failed to download the audio file, try again');
     }
 };
 
@@ -67,7 +76,7 @@ export const cutAudio = (input: string, output: string, start?: string, end?: st
                 resolve(console.log('Successfully cut the audio'));
             })
             .on('error', () => {
-                reject(new Error('Could not cut the audio'));
+                reject(new AudioCutError('Could not cut the audio'));
             })
             .run();
     });
@@ -82,7 +91,7 @@ export const convertAudio = (input: string, output: string) => {
                 resolve(console.log('Successfully converted the audio'));
             })
             .on('error', () => {
-                reject(new Error('Could not convert the audio'));
+                reject(new AudioConvertError('Could not convert the audio'));
             })
             .run();
     });
@@ -98,23 +107,29 @@ export const recognizeAudio = async (
     audio: string,
     shazamApiKey?: string
 ): Promise<RecognitionResult> => {
-    const response = await axios.post(SHAZAM_API_URL, audio, {
-        headers: {
-            'content-type': 'text/plain',
-            'x-rapidapi-host': 'shazam.p.rapidapi.com',
-            'x-rapidapi-key': shazamApiKey || process.env.SHAZAM_API_KEY,
-        },
-    });
-    if (typeof response.data.track === 'undefined') {
-        return {
-            found: false,
-        };
-    }
+    try {
+        const response = await axios.post(SHAZAM_API_URL, audio, {
+            headers: {
+                'content-type': 'text/plain',
+                'x-rapidapi-host': 'shazam.p.rapidapi.com',
+                'x-rapidapi-key': shazamApiKey || process.env.SHAZAM_API_KEY,
+            },
+        });
+        if (typeof response.data.track === 'undefined') {
+            return {
+                found: false,
+            };
+        }
 
-    return {
-        found: true,
-        artist: response.data.track.subtitle,
-        title: response.data.track.title,
-        albumImage: response.data.track.images?.background,
-    };
+        return {
+            found: true,
+            artist: response.data.track.subtitle,
+            title: response.data.track.title,
+            albumImage: response.data.track.images?.background,
+        };
+    } catch (err) {
+        throw new ShazamRequestError(
+            'Something went wrong while performing the Shazam request, try again'
+        );
+    }
 };

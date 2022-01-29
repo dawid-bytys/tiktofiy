@@ -13,11 +13,12 @@ import { isSongFound, Body } from '@tiktofiy/common';
 import { isTest } from '../config';
 import { generateRandomString, clearMedia } from '../utils/utils';
 import { getStoredTiktok, storeTiktok } from '../services/db.service';
+import { InvalidUrlError } from '../utils/errors';
 
 export const audioRecognize = async (req: Request, res: Response, next: NextFunction) => {
     const { url, shazamApiKey, start, end }: Body = req.body;
     if (!validUrl.isUri(url)) {
-        return next(new Error('Provide a valid url'));
+        return next(new InvalidUrlError('Provide a valid url'));
     }
 
     try {
