@@ -11,6 +11,7 @@
         "bootstrap": "lerna bootstrap --use-workspaces",
         "start": "NODE_ENV=production yarn workspace @tiktofiy/api start",
         "test": "yarn workspace @tiktofiy/api test",
+        "build": "yarn common:build && yarn api:build && yarn client:build",
         "common:build": "yarn workspace @tiktofiy/common build",
         "client:build": "yarn workspace @tiktofiy/client build",
         "client:start": "yarn workspace @tiktofiy/client start",

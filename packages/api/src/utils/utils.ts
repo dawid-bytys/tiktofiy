@@ -9,3 +9,29 @@ export const isUrlValid = (url: string) => {
 
     return desktopPattern.test(url) || mobilePattern.test(url);
 };
+
+const urlType = (url: string) => {
+    if (url.includes('item_id=')) {
+        return 1;
+    } else if (url.includes('m.tiktok')) {
+        return 2;
+    } else if (url.includes('/video/')) {
+        return 3;
+    }
+
+    return undefined;
+};
+
+export const retrieveTikTokId = (url: string) => {
+    const type = urlType(url);
+
+    if (type === 1) {
+        return url.split('item_id=')[1];
+    } else if (type === 2) {
+        return url.substring(23, 42);
+    } else if (type === 3) {
+        return url.split('/video/')[1].split('?')[0];
+    }
+
+    throw new Error('Unknown url type');
+};
