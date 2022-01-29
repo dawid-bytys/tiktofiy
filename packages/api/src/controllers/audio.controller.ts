@@ -1,24 +1,28 @@
+import validUrl from 'valid-url';
 import type { NextFunction, Request, Response } from 'express';
 import {
     getAudioBase64,
-    getTikTokAudioUrl,
-    getTikTokFinalUrl,
+    getTikTokAudioURL,
+    getTikTokFinalURL,
     recognizeAudio,
+    downloadAudio,
+    cutAudio,
+    convertAudio,
 } from '../services/audio.service';
-import { getStoredTiktok, storeTiktok } from '../services/db.service';
-import { isUrlValid } from '../utils/utils';
 import { isSongFound, Body } from '@tiktofiy/common';
 import { isTest } from '../config';
+import { generateRandomString, clearMedia } from '../utils/utils';
+import { getStoredTiktok, storeTiktok } from '../services/db.service';
 
 export const audioRecognize = async (req: Request, res: Response, next: NextFunction) => {
     const { url, shazamApiKey, start, end }: Body = req.body;
-    if (typeof url === 'undefined' || !isUrlValid(url)) {
+    if (!validUrl.isUri(url)) {
         return next(new Error('Provide a valid url'));
     }
 
     try {
-        const finalUrl = await getTikTokFinalUrl(url);
-        const audioUrl = await getTikTokAudioUrl(finalUrl);
+        const finalUrl = await getTikTokFinalURL(url);
+        const audioUrl = await getTikTokAudioURL(finalUrl);
 
         if (!isTest()) {
             const storedTiktok = await getStoredTiktok(audioUrl);
@@ -32,7 +36,15 @@ export const audioRecognize = async (req: Request, res: Response, next: NextFunc
             }
         }
 
-        const audio = await getAudioBase64(audioUrl, start, end);
+        const audioFilename = generateRandomString(16);
+        const cutAudioFilename = generateRandomString(16);
+        const cutConvertedAudioFilename = generateRandomString(16);
+
+        await downloadAudio(audioUrl, audioFilename);
+        await cutAudio(audioFilename, cutAudioFilename, start, end);
+        await convertAudio(cutAudioFilename, cutConvertedAudioFilename);
+
+        const audio = await getAudioBase64(cutConvertedAudioFilename);
         const recognizedAudio = await recognizeAudio(audio, shazamApiKey);
 
         // If the song has been recognized, save it to the database
@@ -44,6 +56,8 @@ export const audioRecognize = async (req: Request, res: Response, next: NextFunc
                 albumImage: recognizedAudio.albumImage,
             });
         }
+
+        await clearMedia([audioFilename, cutAudioFilename, cutConvertedAudioFilename]);
 
         return res.status(200).send(recognizedAudio);
     } catch (err) {

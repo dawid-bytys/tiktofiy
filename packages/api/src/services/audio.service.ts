@@ -2,21 +2,28 @@ import ffmpegPath from '@ffmpeg-installer/ffmpeg';
 import ffmpeg from 'fluent-ffmpeg';
 import fs from 'fs';
 import axios from 'axios';
+import fetch from 'node-fetch';
 import type { RecognitionResult } from '@tiktofiy/common';
-import { retrieveTikTokId, returnPath } from '../utils/utils';
+import { getTikTokID, returnPath } from '../utils/utils';
 import { SHAZAM_API_URL, TIKTOK_API_URL } from '../constants';
 
 // Configure ffmpeg
 ffmpeg.setFfmpegPath(ffmpegPath.path);
 
-export const getTikTokFinalUrl = async (url: string) => {
-    const response = await axios.get(url);
-    const responseUrl: string = response.request.res.responseUrl;
+// Using node-fetch here because on Linux axios does not work as expected
+export const getTikTokFinalURL = async (url: string) => {
+    const response = await fetch(url);
 
-    return TIKTOK_API_URL + retrieveTikTokId(responseUrl);
+    const tiktokId = getTikTokID(response.url);
+    if (!tiktokId) {
+        throw new Error('Provide a valid format of TikTok url');
+    }
+
+    return TIKTOK_API_URL + tiktokId;
 };
 
-export const getTikTokAudioUrl = async (url: string) => {
+// User-Agent header is required by TikTok API to perform a successful request
+export const getTikTokAudioURL = async (url: string) => {
     const response = await axios.get(url, {
         headers: {
             'user-agent':
@@ -30,7 +37,7 @@ export const getTikTokAudioUrl = async (url: string) => {
     return response.data.itemInfo.itemStruct.music.playUrl as string;
 };
 
-const downloadAudio = async (url: string) => {
+export const downloadAudio = async (url: string, output: string) => {
     try {
         const response = await axios.get(url, {
             responseType: 'stream',
@@ -38,7 +45,7 @@ const downloadAudio = async (url: string) => {
 
         return new Promise((resolve, reject) => {
             response.data
-                .pipe(fs.createWriteStream(returnPath('audio.mp3')))
+                .pipe(fs.createWriteStream(returnPath(`${output}.mp3`)))
                 .on('close', () => {
                     resolve(console.log('Successfully downloaded the audio file'));
                 })
@@ -51,11 +58,11 @@ const downloadAudio = async (url: string) => {
     }
 };
 
-const cutAudio = (input: string, output: string, start: string, end: string) => {
+export const cutAudio = (input: string, output: string, start?: string, end?: string) => {
     return new Promise((resolve, reject) => {
-        ffmpeg(input)
-            .outputOptions('-ss', start || '0', '-to', end && end !== '0' ? end : '4')
-            .output(output)
+        ffmpeg(returnPath(`${input}.mp3`))
+            .outputOptions('-ss', start || '0', '-to', end && end !== '0' ? end : '5')
+            .output(returnPath(`${output}.mp3`))
             .on('end', () => {
                 resolve(console.log('Successfully cut the audio'));
             })
@@ -66,11 +73,11 @@ const cutAudio = (input: string, output: string, start: string, end: string) => 
     });
 };
 
-const convertAudio = (input: string, output: string) => {
+export const convertAudio = (input: string, output: string) => {
     return new Promise((resolve, reject) => {
-        ffmpeg(input)
+        ffmpeg(returnPath(`${input}.mp3`))
             .outputOptions('-f', 's16le', '-ac', '1', '-ar', '44100')
-            .output(output)
+            .output(returnPath(`${output}.mp3`))
             .on('end', () => {
                 resolve(console.log('Successfully converted the audio'));
             })
@@ -81,13 +88,8 @@ const convertAudio = (input: string, output: string) => {
     });
 };
 
-export const getAudioBase64 = async (url: string, start: string, end: string) => {
-    await downloadAudio(url);
-    await cutAudio(returnPath('audio.mp3'), returnPath('cuttedAudio.mp3'), start, end);
-    await convertAudio(returnPath('cuttedAudio.mp3'), returnPath('cuttedConvertedAudio.mp3'));
-
-    // Return base64 format of the audio
-    return fs.readFileSync(returnPath('cuttedConvertedAudio.mp3'), {
+export const getAudioBase64 = async (filename: string) => {
+    return fs.readFileSync(returnPath(`${filename}.mp3`), {
         encoding: 'base64',
     });
 };
