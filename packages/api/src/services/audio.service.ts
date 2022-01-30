@@ -105,12 +105,6 @@ export const convertAudio = (input: string, output: string) => {
     });
 };
 
-export const getAudioBase64 = async (filename: string) => {
-    return fs.readFileSync(returnPath(`${filename}.mp3`), {
-        encoding: 'base64',
-    });
-};
-
 export const recognizeAudio = async (
     audio: string,
     shazamApiKey?: string,

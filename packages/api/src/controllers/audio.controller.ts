@@ -1,8 +1,8 @@
 import validUrl from 'valid-url';
+import fs from 'fs';
 import type { NextFunction, Request, Response } from 'express';
 import type { Body } from '@tiktofiy/common';
 import {
-    getAudioBase64,
     getTikTokAudioURL,
     getTikTokFinalURL,
     recognizeAudio,
@@ -12,11 +12,11 @@ import {
 } from '../services/audio.service';
 import { isSongFound } from '@tiktofiy/common';
 import { isTest } from '../config';
-import { generateRandomString, clearMedia } from '../utils/utils';
+import { generateRandomString, clearMedia, returnPath } from '../utils/utils';
 import { getStoredTiktok, storeTiktok } from '../services/db.service';
 import { InvalidUrlError } from '../utils/errors';
 
-export const audioRecognize = async (req: Request, res: Response, next: NextFunction) => {
+export const audioRecognition = async (req: Request, res: Response, next: NextFunction) => {
     const { url, shazamApiKey, start, end }: Body = req.body;
     if (!validUrl.isUri(url)) {
         return next(new InvalidUrlError('Provide a valid url'));
@@ -53,8 +53,10 @@ export const audioRecognize = async (req: Request, res: Response, next: NextFunc
         await cutAudio(audioFilename, cutAudioFilename, start, end);
         await convertAudio(cutAudioFilename, cutConvertedAudioFilename);
 
-        const audio = await getAudioBase64(cutConvertedAudioFilename);
-        const recognizedAudio = await recognizeAudio(audio, shazamApiKey);
+        const audioBase64 = fs.readFileSync(returnPath(`${cutConvertedAudioFilename}.mp3`), {
+            encoding: 'base64',
+        });
+        const recognizedAudio = await recognizeAudio(audioBase64, shazamApiKey);
 
         // If the song has been recognized, save it to the database
         if (!isTest() && isSongFound(recognizedAudio)) {
