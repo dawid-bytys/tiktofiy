@@ -30,11 +30,15 @@ if (!isTest()) {
 
     server.on('error', err => console.error(err));
 
-    process.on('SIGTERM', () => {
-        console.log('Closing server connection');
+    const serverShutdown = () => {
+        console.log('Closing server gracefully...');
 
         server.close(() => {
             console.log('Server has been closed');
+            process.exit(0);
         });
-    });
+    };
+
+    process.on('SIGTERM', serverShutdown);
+    process.on('SIGINT', serverShutdown);
 }
