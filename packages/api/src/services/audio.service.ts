@@ -12,7 +12,9 @@ import {
     AudioDownloadError,
     AudioSaveError,
     InvalidUrlFormatError,
+    ShazamApiKeyError,
     ShazamRequestError,
+    TikTokRequestError,
     TikTokUnavailableError,
 } from '../utils/errors';
 
@@ -33,17 +35,23 @@ export const getTikTokFinalURL = async (url: string) => {
 
 // User-Agent header is required by TikTok API to perform a successful request
 export const getTikTokAudioURL = async (url: string) => {
-    const response = await axios.get(url, {
-        headers: {
-            'user-agent':
-                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36',
-        },
-    });
-    if (response.data.statusCode === 10217) {
-        throw new TikTokUnavailableError('Provided TikTok is not currently available');
-    }
+    try {
+        const response = await axios.get(url, {
+            headers: {
+                'user-agent':
+                    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36',
+            },
+        });
+        if (response.data.statusCode === 10217) {
+            throw new TikTokUnavailableError('Provided TikTok is not currently available');
+        }
 
-    return response.data.itemInfo.itemStruct.music.playUrl as string;
+        return response.data.itemInfo.itemStruct.music.playUrl as string;
+    } catch (err) {
+        throw new TikTokRequestError(
+            'Something went wrong while performing the TikTok request, try again'
+        );
+    }
 };
 
 export const downloadAudio = async (url: string, output: string) => {
@@ -128,6 +136,12 @@ export const recognizeAudio = async (
             albumImage: response.data.track.images?.background,
         };
     } catch (err) {
+        if (axios.isAxiosError(err)) {
+            if (err.response?.data.message === 'You are not subscribed to this API.') {
+                throw new ShazamApiKeyError(err.response?.data.message);
+            }
+        }
+
         throw new ShazamRequestError(
             'Something went wrong while performing the Shazam request, try again'
         );

@@ -9,7 +9,8 @@
         "build": "tsc",
         "cleanup": "rm -rf dist",
         "test": "NODE_ENV=testing jest",
-        "test:unit": "NODE_ENV=testing jest --watchAll ./src/utils/*.spec.ts"
+        "test:unit": "NODE_ENV=testing jest --watchAll ./src/utils/utils.spec.ts",
+        "test:db": "NODE_ENV=testing jest --watchAll ./src/services/db.service.spec.ts"
     },
     "dependencies": {
         "@ffmpeg-installer/ffmpeg": "^1.1.0",

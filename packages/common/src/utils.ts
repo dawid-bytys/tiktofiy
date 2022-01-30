@@ -2,7 +2,7 @@ export interface AudioFound {
     readonly found: true;
     readonly artist: string;
     readonly title: string;
-    readonly albumImage: string;
+    readonly albumImage?: string;
 }
 
 interface AudioNotFound {

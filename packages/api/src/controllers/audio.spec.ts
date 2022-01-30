@@ -37,7 +37,7 @@ describe('[POST] - /recognize', () => {
 
         expect(response.statusCode).toBe(400);
         expect(response.body).toEqual({
-            message: 'Provide a valid url',
+            message: 'Provide a valid format of TikTok url',
         });
     });
 
@@ -101,7 +101,7 @@ describe('[POST] - /recognize', () => {
             end: '0',
         });
 
-        expect(response.statusCode).toBe(400);
+        expect(response.statusCode).toBe(403);
         expect(response.body.message).toEqual('You are not subscribed to this API.');
     });
 
