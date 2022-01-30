@@ -17,5 +17,5 @@ ReactDOM.render(
             </React.StrictMode>
         </PersistGate>
     </Provider>,
-    document.getElementById('root')
+    document.getElementById('root'),
 );

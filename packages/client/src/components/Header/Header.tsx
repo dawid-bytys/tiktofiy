@@ -13,7 +13,7 @@ export const Header = () => {
 
     const currentPage = useMemo(
         () => (location.pathname === '/' ? 'home' : 'settings'),
-        [location]
+        [location],
     );
 
     return (

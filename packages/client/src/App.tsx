@@ -48,7 +48,7 @@ export const App = () => {
                                 <Glow />
                                 <Themes />
                             </animated.div>
-                        )
+                        ),
                 )}
                 <Switch>
                     <Route path="/" element={<Home />} />

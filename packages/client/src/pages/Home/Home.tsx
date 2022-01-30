@@ -5,7 +5,8 @@ import { File } from 'react-kawaii';
 import { Error } from '../../utils/grabber';
 import { useSelector } from 'react-redux';
 import { selectSettings } from '../../redux/store';
-import { RecognitionResult, isSongFound } from '@tiktofiy/common';
+import type { RecognitionResult } from '@tiktofiy/common';
+import { isSongFound } from '@tiktofiy/common';
 
 const BASE_URL = '/api/v1/audio/recognize';
 
