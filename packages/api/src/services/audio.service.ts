@@ -10,13 +10,14 @@ import {
     AudioConvertError,
     AudioCutError,
     AudioDownloadError,
-    AudioSaveError,
     InvalidUrlFormatError,
     ShazamApiKeyError,
     ShazamRequestError,
     TikTokRequestError,
     TikTokUnavailableError,
 } from '../utils/errors';
+import { promisify } from 'util';
+import { pipeline } from 'stream';
 
 // Configure ffmpeg
 ffmpeg.setFfmpegPath(ffmpegPath.path);
@@ -60,16 +61,10 @@ export const downloadAudio = async (url: string, output: string) => {
             responseType: 'stream',
         });
 
-        return new Promise((resolve, reject) => {
-            response.data
-                .pipe(fs.createWriteStream(returnPath(`${output}.mp3`)))
-                .on('close', () => {
-                    resolve(console.log('Successfully downloaded the audio file'));
-                })
-                .on('error', () => {
-                    reject(new AudioSaveError('Failed to save the audio file'));
-                });
-        });
+        const pipelineAsync = promisify(pipeline);
+
+        await pipelineAsync(response.data, fs.createWriteStream(returnPath(`${output}.mp3`)));
+        console.log('Successfully downloaded the audio file');
     } catch (err) {
         throw new AudioDownloadError('Failed to download the audio file, try again');
     }
