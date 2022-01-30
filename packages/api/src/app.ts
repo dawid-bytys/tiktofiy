@@ -29,4 +29,12 @@ if (!isTest()) {
     });
 
     server.on('error', err => console.error(err));
+
+    process.on('SIGTERM', () => {
+        console.log('Closing server connection');
+
+        server.close(() => {
+            console.log('Server has been closed');
+        });
+    });
 }
