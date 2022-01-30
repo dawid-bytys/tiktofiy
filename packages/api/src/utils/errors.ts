@@ -1,3 +1,13 @@
+export abstract class CustomError extends Error {
+    abstract statusCode: number;
+
+    constructor(message: string) {
+        super(message);
+
+        Object.setPrototypeOf(this, CustomError.prototype);
+    }
+}
+
 export class InvalidUrlError extends Error {
     constructor(message: string) {
         super(message);
@@ -6,9 +16,12 @@ export class InvalidUrlError extends Error {
     }
 }
 
-export class ShazamRequestError extends Error {
+export class ShazamRequestError extends CustomError {
+    statusCode: number;
+
     constructor(message: string) {
         super(message);
+        this.statusCode = 502;
 
         Object.setPrototypeOf(this, ShazamRequestError.prototype);
     }
@@ -22,9 +35,12 @@ export class InvalidUrlFormatError extends Error {
     }
 }
 
-export class PrismaSaveError extends Error {
+export class PrismaSaveError extends CustomError {
+    statusCode: number;
+
     constructor(message: string) {
         super(message);
+        this.statusCode = 503;
 
         Object.setPrototypeOf(this, PrismaSaveError.prototype);
     }
@@ -38,9 +54,12 @@ export class TikTokUnavailableError extends Error {
     }
 }
 
-export class AudioDownloadError extends Error {
+export class AudioDownloadError extends CustomError {
+    statusCode: number;
+
     constructor(message: string) {
         super(message);
+        this.statusCode = 502;
 
         Object.setPrototypeOf(this, AudioDownloadError.prototype);
     }

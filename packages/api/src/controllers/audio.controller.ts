@@ -37,9 +37,16 @@ export const audioRecognize = async (req: Request, res: Response, next: NextFunc
             }
         }
 
+        /*
         const audioFilename = generateRandomString(16);
         const cutAudioFilename = generateRandomString(16);
         const cutConvertedAudioFilename = generateRandomString(16);
+        */
+
+        // xD
+        const [audioFilename, cutAudioFilename, cutConvertedAudioFilename]: string[] = new Array(3)
+            .fill(null)
+            .map(() => generateRandomString(16));
 
         await downloadAudio(audioUrl, audioFilename);
         await cutAudio(audioFilename, cutAudioFilename, start, end);
