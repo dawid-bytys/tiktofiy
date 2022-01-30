@@ -11,10 +11,10 @@ export const app = express();
 
 // If the app is running in the production mode, serve the built version of front-end
 if (isProd()) {
-    app.use(express.static(path.join('..', 'client', 'build')));
+    app.use(express.static(path.join(__dirname, '..', '..', '..', 'client', 'build')));
 
     app.get('*', (_, res: Response) => {
-        res.sendFile(path.join('..', 'client', 'build', 'index.html'));
+        res.sendFile(path.join(__dirname, '..', '..', '..', 'client', 'build', 'index.html'));
     });
 }
 
