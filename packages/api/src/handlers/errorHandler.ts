@@ -9,10 +9,6 @@ export const errorHandler = (err: unknown, _req: Request, res: Response, _next: 
 
     if (err instanceof CustomError) {
         return res.status(err.statusCode).send({ message: err.message });
-    } else if (err instanceof Error) {
-        return res.status(400).send({
-            message: err.message,
-        });
     }
 
     return res.status(500).send({

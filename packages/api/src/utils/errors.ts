@@ -52,14 +52,14 @@ export class TikTokRequestError extends CustomError {
     }
 }
 
-export class PrismaSaveError extends CustomError {
+export class PrismaError extends CustomError {
     statusCode: number;
 
     constructor(message: string) {
         super(message);
 
         this.statusCode = 503;
-        Object.setPrototypeOf(this, PrismaSaveError.prototype);
+        Object.setPrototypeOf(this, PrismaError.prototype);
     }
 }
 
@@ -118,18 +118,24 @@ export class ClearMediaError extends CustomError {
     }
 }
 
-export class InvalidUrlError extends Error {
+export class InvalidUrlError extends CustomError {
+    statusCode: number;
+
     constructor(message: string) {
         super(message);
 
+        this.statusCode = 400;
         Object.setPrototypeOf(this, InvalidUrlError.prototype);
     }
 }
 
-export class InvalidUrlFormatError extends Error {
+export class InvalidUrlFormatError extends CustomError {
+    statusCode: number;
+
     constructor(message: string) {
         super(message);
 
+        this.statusCode = 400;
         Object.setPrototypeOf(this, InvalidUrlFormatError.prototype);
     }
 }

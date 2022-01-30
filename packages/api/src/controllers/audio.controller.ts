@@ -1,5 +1,6 @@
 import validUrl from 'valid-url';
 import type { NextFunction, Request, Response } from 'express';
+import type { Body } from '@tiktofiy/common';
 import {
     getAudioBase64,
     getTikTokAudioURL,
@@ -9,7 +10,7 @@ import {
     cutAudio,
     convertAudio,
 } from '../services/audio.service';
-import { isSongFound, Body } from '@tiktofiy/common';
+import { isSongFound } from '@tiktofiy/common';
 import { isTest } from '../config';
 import { generateRandomString, clearMedia } from '../utils/utils';
 import { getStoredTiktok, storeTiktok } from '../services/db.service';

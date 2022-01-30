@@ -1,5 +1,5 @@
 import { prisma } from '../db';
-import { AudioFound } from '@tiktofiy/common';
+import type { AudioFound } from '@tiktofiy/common';
 
 describe('PRISMA TESTS', () => {
     afterAll(async () => {

@@ -1,15 +1,19 @@
-import { AudioFound } from '@tiktofiy/common';
+import type { AudioFound } from '@tiktofiy/common';
 import { prisma } from '../db';
-import { PrismaSaveError } from '../utils/errors';
+import { PrismaError } from '../utils/errors';
 
 export const getStoredTiktok = async (url: string) => {
-    const storedTiktok = await prisma.songs.findUnique({
-        where: {
-            url: url,
-        },
-    });
+    try {
+        const storedTiktok = await prisma.songs.findUnique({
+            where: {
+                url: url,
+            },
+        });
 
-    return storedTiktok;
+        return storedTiktok;
+    } catch (err) {
+        throw new PrismaError('Something went wrong with databse connection, try again');
+    }
 };
 
 export const storeTiktok = async (song: Omit<AudioFound, 'found'> & { url: string }) => {
@@ -23,6 +27,6 @@ export const storeTiktok = async (song: Omit<AudioFound, 'found'> & { url: strin
             },
         });
     } catch (err) {
-        throw new PrismaSaveError('Failed to save song to the database');
+        throw new PrismaError('Something went wrong with databse connection, try again');
     }
 };

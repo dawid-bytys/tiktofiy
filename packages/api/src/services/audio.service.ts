@@ -49,7 +49,7 @@ export const getTikTokAudioURL = async (url: string) => {
         return response.data.itemInfo.itemStruct.music.playUrl as string;
     } catch (err) {
         throw new TikTokRequestError(
-            'Something went wrong while performing the TikTok request, try again'
+            'Something went wrong while performing the TikTok request, try again',
         );
     }
 };
@@ -113,7 +113,7 @@ export const getAudioBase64 = async (filename: string) => {
 
 export const recognizeAudio = async (
     audio: string,
-    shazamApiKey?: string
+    shazamApiKey?: string,
 ): Promise<RecognitionResult> => {
     try {
         const response = await axios.post(SHAZAM_API_URL, audio, {
@@ -143,7 +143,7 @@ export const recognizeAudio = async (
         }
 
         throw new ShazamRequestError(
-            'Something went wrong while performing the Shazam request, try again'
+            'Something went wrong while performing the Shazam request, try again',
         );
     }
 };
