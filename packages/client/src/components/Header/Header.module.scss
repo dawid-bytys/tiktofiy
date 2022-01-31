@@ -8,6 +8,10 @@
     @media only screen and (min-width: 61rem) {
         padding: 3.5rem;
     }
+
+    @media only screen and (min-width: 106rem) {
+        padding: 6rem;
+    }
 }
 
 .headerUpper {
@@ -20,7 +24,7 @@
     }
 
     @media only screen and (min-width: 106rem) {
-        height: 7rem;
+        height: 8rem;
     }
 }
 
@@ -43,7 +47,7 @@
     }
 
     @media only screen and (min-width: 106rem) {
-        font-size: 3rem;
+        font-size: 4rem;
     }
 }
 
@@ -51,6 +55,11 @@
     @include flex-jc-ai-c;
 
     height: 2rem;
+
+    @media only screen and (min-width: 106rem) {
+        height: 2.2rem;
+        margin-top: 1rem;
+    }
 }
 
 .link,
