@@ -25,7 +25,7 @@ export class ShazamRequestError extends CustomError {
     constructor(message: string) {
         super(message);
 
-        this.statusCode = 502;
+        this.statusCode = 503;
         Object.setPrototypeOf(this, ShazamRequestError.prototype);
     }
 }

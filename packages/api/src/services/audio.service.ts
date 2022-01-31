@@ -132,7 +132,7 @@ export const recognizeAudio = async (
         }
 
         throw new ShazamRequestError(
-            'Something went wrong while performing the Shazam request, try again',
+            'Shazam service is probably temporarily unavailable, try again later',
         );
     }
 };
