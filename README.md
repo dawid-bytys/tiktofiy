@@ -16,7 +16,8 @@
 ## Getting Started
 
 If you are interested in hosting this app on your own, create a Cluster on MongoDB cloud and request your own Shazam API Key at https://rapidapi.com/apidojo/api/shazam
-Demo: http://tiktofiy.ddns.net/
+<br />
+Live: https://tiktofiy.com
 
 1. Clone this repository, then create and fill the .env file with required enviroments, you can see the template in `.env.example`
 

@@ -25,7 +25,7 @@ app.use(errorHandler);
 
 if (!isTest()) {
     const server = app.listen(PORT, () => {
-        console.log(`Listening on port ${PORT}`);
+        console.log(`Main server has started running on port ${PORT}`);
     });
 
     server.on('error', err => console.error(err));
