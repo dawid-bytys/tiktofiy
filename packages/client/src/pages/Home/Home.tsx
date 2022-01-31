@@ -8,7 +8,7 @@ import { selectSettings } from '../../redux/store';
 import type { RecognitionResult } from '@tiktofiy/common';
 import { isSongFound } from '@tiktofiy/common';
 
-const BASE_URL = '/api/v1/audio/recognize';
+const BASE_URL = 'https://api.tiktofiy.com/audio/recognize';
 
 export const Home = () => {
     const [url, setUrl] = useState('');

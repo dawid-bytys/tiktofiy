@@ -5,7 +5,7 @@ import axios from 'axios';
 import fetch from 'node-fetch';
 import type { RecognitionResult } from '@tiktofiy/common';
 import { getTikTokID, returnPath } from '../utils/utils';
-import { SHAZAM_API_URL, TIKTOK_API_URL } from '../constants';
+import { SHAZAM_API_URL, TIKTOK_API_URL } from '../utils/constants';
 import {
     AudioConvertError,
     AudioCutError,

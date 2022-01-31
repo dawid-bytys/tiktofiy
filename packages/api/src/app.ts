@@ -1,26 +1,21 @@
 import express from 'express';
-import path from 'path';
+import cors from 'cors';
 import { router } from './routes/index';
-import type { Response } from 'express';
 import { errorHandler } from './handlers/errorHandler';
-import { isProd, isTest } from './config';
+import { isTest } from './config';
 
 const PORT = process.env.PORT || 4000;
 
 export const app = express();
 
-// If the app is running in the production mode, serve the built version of front-end
-if (isProd()) {
-    app.use(express.static(path.join(__dirname, '..', '..', '..', 'client', 'build')));
-
-    app.get('*', (_, res: Response) => {
-        res.sendFile(path.join(__dirname, '..', '..', '..', 'client', 'build', 'index.html'));
-    });
-}
-
 // Server configuration
 app.use(express.json());
-app.use('/api/v1', router);
+app.use(
+    cors({
+        origin: 'https://tiktofiy.com',
+    }),
+);
+app.use(router);
 app.use(errorHandler);
 
 if (!isTest()) {

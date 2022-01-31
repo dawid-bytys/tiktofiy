@@ -24,6 +24,7 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
                   cache: 'npm'
+            - run: git pull origin master
             - run: yarn lerna bootstrap
             - run: yarn build
             - run: pm2 restart tiktofiy
