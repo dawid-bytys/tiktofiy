@@ -1,4 +1,4 @@
-import { RecognitionResult } from '@tiktofiy/common';
+import type { RecognitionResult } from '@tiktofiy/common';
 import request from 'supertest';
 import { app } from '../app';
 
@@ -14,7 +14,7 @@ const SONGS_TO_RECOGNIZE = [
 
 describe('[POST] - /recognize', () => {
     it('it should expect status 400, url not provided', async () => {
-        const response = await request(app).post('/api/v1/audio/recognize').send({
+        const response = await request(app).post('/audio/recognize').send({
             url: '',
             shazamApiKey: '',
             start: '0',
@@ -23,12 +23,12 @@ describe('[POST] - /recognize', () => {
 
         expect(response.statusCode).toBe(400);
         expect(response.body).toEqual({
-            message: 'Provide a valid url',
+            message: 'Invalid body has been provided',
         });
     });
 
     it('it should expect status 400, url is not valid', async () => {
-        const response = await request(app).post('/api/v1/audio/recognize').send({
+        const response = await request(app).post('/audio/recognize').send({
             url: 'https://google.com/',
             shazamApiKey: '',
             start: '0',
@@ -42,7 +42,7 @@ describe('[POST] - /recognize', () => {
     });
 
     it('it should expect status 200, success request but song was not found (desktop url)', async () => {
-        const response = await request(app).post('/api/v1/audio/recognize').send({
+        const response = await request(app).post('/audio/recognize').send({
             url: 'https://www.tiktok.com/@bombathedog/video/7048014273162792197?is_copy_url=1&is_from_webapp=v1',
             shazamApiKey: '',
             start: '0',
@@ -56,7 +56,7 @@ describe('[POST] - /recognize', () => {
     });
 
     it('it should expect status 200, success request but song was not found (mobile url)', async () => {
-        const response = await request(app).post('/api/v1/audio/recognize').send({
+        const response = await request(app).post('/audio/recognize').send({
             url: 'https://vm.tiktok.com/ZM8KTJGTv/',
             shazamApiKey: '',
             start: '0',
@@ -70,7 +70,7 @@ describe('[POST] - /recognize', () => {
     });
 
     it('it should expect status 200, success request and song has been found (desktop url)', async () => {
-        const response = await request(app).post('/api/v1/audio/recognize').send({
+        const response = await request(app).post('/audio/recognize').send({
             url: 'https://www.tiktok.com/@adi.adalante/video/7032364672162516229?is_copy_url=1&is_from_webapp=v1',
             shazamApiKey: '',
             start: '0',
@@ -82,7 +82,7 @@ describe('[POST] - /recognize', () => {
     });
 
     it('it should expect status 200, success request and song has been found (mobile url)', async () => {
-        const response = await request(app).post('/api/v1/audio/recognize').send({
+        const response = await request(app).post('/audio/recognize').send({
             url: 'https://vm.tiktok.com/ZM8otTVW6/',
             shazamApiKey: '',
             start: '0',
@@ -94,7 +94,7 @@ describe('[POST] - /recognize', () => {
     });
 
     it('it should expect status 400, bad request, shazamApiKey is not valid', async () => {
-        const response = await request(app).post('/api/v1/audio/recognize').send({
+        const response = await request(app).post('/audio/recognize').send({
             url: 'https://www.tiktok.com/@adi.adalante/video/7032364672162516229?is_copy_url=1&is_from_webapp=v1',
             shazamApiKey: '12345',
             start: '0',
@@ -107,7 +107,7 @@ describe('[POST] - /recognize', () => {
 
     it('it should expect status 200, all songs have been recognized or not', async () => {
         const requests = SONGS_TO_RECOGNIZE.map(link => {
-            return request(app).post('/api/v1/audio/recognize').send({
+            return request(app).post('/audio/recognize').send({
                 url: link,
                 shazamApiKey: '',
                 start: '0',

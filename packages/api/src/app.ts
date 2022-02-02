@@ -1,9 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import { router } from './routes/index';
-import { errorHandler } from './handlers/errorHandler';
+import { errorMiddleware } from './middlewares/error.middleware';
 import { isTest } from './config';
-import { getCurrentTime } from './utils/utils';
 
 const PORT = process.env.PORT || 4000;
 
@@ -17,20 +16,20 @@ app.use(
     }),
 );
 app.use(router);
-app.use(errorHandler);
+app.use(errorMiddleware);
 
 if (!isTest()) {
     const server = app.listen(PORT, () => {
-        console.log('\x1b[32m', `[${getCurrentTime()}] Listening on ${PORT}`);
+        console.log(`Listening on ${PORT}`);
     });
 
     server.on('error', err => console.error(err));
 
     const serverShutdown = () => {
-        console.log('\x1b[36m', `[${getCurrentTime()}] Closing server gracefully...`);
+        console.log('Closing server gracefully...');
 
         server.close(() => {
-            console.log('\x1b[31m', `[${getCurrentTime()}] Server has been closed`);
+            console.log('Server has been closed');
             process.exit(0);
         });
     };

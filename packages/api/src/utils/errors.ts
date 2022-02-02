@@ -139,3 +139,14 @@ export class InvalidUrlFormatError extends CustomError {
         Object.setPrototypeOf(this, InvalidUrlFormatError.prototype);
     }
 }
+
+export class InvalidBodyError extends CustomError {
+    statusCode: number;
+
+    constructor(message: string) {
+        super(message);
+
+        this.statusCode = 400;
+        Object.setPrototypeOf(this, InvalidUrlFormatError.prototype);
+    }
+}
