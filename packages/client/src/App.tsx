@@ -4,7 +4,7 @@ import { Header, Settings, Home, Glow, Themes, Footer } from './utils/grabber';
 import { useTransition, animated } from 'react-spring';
 import { useSelector } from 'react-redux';
 import { selectThemeWindow, selectTheme } from './redux/store';
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 
 export const App = () => {
     const themeWindow = useSelector(selectThemeWindow);
@@ -20,12 +20,12 @@ export const App = () => {
     });
 
     // Load the right theme
-    useEffect(() => {
+    useLayoutEffect(() => {
         document.body.setAttribute('data-theme', theme || 'default');
     }, [theme]);
 
     // Remove any transition until the page is completely loaded
-    useEffect(() => {
+    useLayoutEffect(() => {
         window.addEventListener('load', () => {
             document.body.classList.remove('preload');
         });

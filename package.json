@@ -13,6 +13,7 @@
         "build": "yarn common:build && yarn api:build && yarn client:build",
         "common:build": "yarn workspace @tiktofiy/common build",
         "client:build": "yarn workspace @tiktofiy/client build",
+        "client:dev": "yarn workspace @tiktofiy/client dev",
         "client:start": "NODE_ENV=production PORT=4001 yarn workspace @tiktofiy/client start",
         "api:start": "NODE_ENV=production yarn workspace @tiktofiy/api start",
         "api:build": "yarn workspace @tiktofiy/api build",
