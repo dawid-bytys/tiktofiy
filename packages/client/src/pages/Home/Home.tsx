@@ -37,7 +37,9 @@ export const Home = () => {
             setAudio(response.data);
         } catch (err) {
             if (axios.isAxiosError(err)) {
-                setError(err.response?.data.message);
+                setError(
+                    err.response?.data.message || 'Something went wrong with the server connection',
+                );
             }
         } finally {
             setLoading(false);
