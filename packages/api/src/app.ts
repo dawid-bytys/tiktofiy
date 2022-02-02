@@ -12,7 +12,7 @@ export const app = express();
 app.use(express.json());
 app.use(
     cors({
-        origin: 'https://tiktofiy.com',
+        origin: ['tiktofiy.com', 'www.tiktofiy.com'],
     }),
 );
 app.use(router);
