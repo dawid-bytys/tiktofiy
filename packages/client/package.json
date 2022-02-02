@@ -3,8 +3,9 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "start": "PORT=4001 craco start",
-        "build": "craco build"
+        "dev": "PORT=4001 craco start",
+        "build": "craco build",
+        "start": "serve -s build"
     },
     "dependencies": {
         "@reduxjs/toolkit": "^1.7.1",
@@ -18,6 +19,7 @@
         "react-scripts": "5.0.0",
         "react-spring": "^9.4.2",
         "redux-persist": "^6.0.0",
+        "serve": "^13.0.2",
         "web-vitals": "^2.1.4"
     },
     "devDependencies": {
