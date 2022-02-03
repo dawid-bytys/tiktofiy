@@ -1,5 +1,5 @@
 import type { NextFunction, Response, Request } from 'express';
-import { isTest } from '../config';
+import { isNodeEnv } from '../config';
 import { CustomError } from '../utils/errors';
 
 export const errorMiddleware = (
@@ -8,7 +8,9 @@ export const errorMiddleware = (
     res: Response,
     _next: NextFunction,
 ) => {
-    !isTest && console.error(err);
+    if (!isNodeEnv('testing')) {
+        console.error(err);
+    }
 
     if (err instanceof CustomError) {
         return res.status(err.statusCode).send({ message: err.message });

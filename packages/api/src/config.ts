@@ -1,6 +1,8 @@
 import dotenv from 'dotenv';
 dotenv.config({ path: '.env' });
 
+type NodeEnv = 'production' | 'development' | 'testing';
+
 export const getConfig = (name: string) => {
     const value = process.env[name];
 
@@ -18,6 +20,4 @@ export const origin = {
             : 'http://localhost:4001',
 };
 
-export const isProd = getConfig('NODE_ENV') === 'production';
-export const isDev = getConfig('NODE_ENV') === 'development';
-export const isTest = getConfig('NODE_ENV') === 'testing';
+export const isNodeEnv = (env: NodeEnv) => getConfig('NODE_ENV') === env;

@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { router } from './routes/index';
 import { errorMiddleware } from './handlers/errorHandler';
-import { getConfig, isTest, origin } from './config';
+import { getConfig, isNodeEnv, origin } from './config';
 
 export const app = express();
 
@@ -14,7 +14,7 @@ app.use(cors(origin));
 app.use(router);
 app.use(errorMiddleware);
 
-if (!isTest) {
+if (!isNodeEnv('testing')) {
     const server = app.listen(PORT, () => {
         console.log(`Listening on PORT ${PORT}`);
     });
