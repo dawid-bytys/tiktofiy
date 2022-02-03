@@ -3,9 +3,9 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "dev": "PORT=4001 craco start",
+        "dev": "NODE_ENV=development PORT=4001 craco start",
         "build": "craco build",
-        "start": "serve -s build"
+        "start": "NODE_ENV=production PORT=4001 serve -s build"
     },
     "dependencies": {
         "@reduxjs/toolkit": "^1.7.1",

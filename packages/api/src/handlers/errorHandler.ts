@@ -8,9 +8,7 @@ export const errorMiddleware = (
     res: Response,
     _next: NextFunction,
 ) => {
-    if (!isTest()) {
-        console.error(err);
-    }
+    !isTest && console.error(err);
 
     if (err instanceof CustomError) {
         return res.status(err.statusCode).send({ message: err.message });

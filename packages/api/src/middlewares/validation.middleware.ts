@@ -2,7 +2,7 @@ import type { Request, Response, NextFunction } from 'express';
 import type { Schema } from 'joi';
 import { InvalidBodyError } from '../utils/errors';
 
-export const bodyValidationPipe =
+export const validateBodySchema =
     (schema: Schema) => (req: Request, _res: Response, next: NextFunction) => {
         const validationResult = schema.validate(req.body);
         if (validationResult.error) {

@@ -1,26 +1,22 @@
 import express from 'express';
 import cors from 'cors';
 import { router } from './routes/index';
-import { errorMiddleware } from './middlewares/error.middleware';
-import { isTest } from './config';
-
-const PORT = process.env.PORT || 4000;
+import { errorMiddleware } from './handlers/errorHandler';
+import { getConfig, isTest, origin } from './config';
 
 export const app = express();
 
+const PORT = getConfig('PORT');
+
 // Server configuration
 app.use(express.json());
-app.use(
-    cors({
-        origin: ['tiktofiy.com', 'www.tiktofiy.com'],
-    }),
-);
+app.use(cors(origin));
 app.use(router);
 app.use(errorMiddleware);
 
-if (!isTest()) {
+if (!isTest) {
     const server = app.listen(PORT, () => {
-        console.log(`Listening on ${PORT}`);
+        console.log(`Listening on PORT ${PORT}`);
     });
 
     server.on('error', err => console.error(err));

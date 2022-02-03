@@ -17,7 +17,7 @@
         "client:start": "NODE_ENV=production PORT=4001 yarn workspace @tiktofiy/client start",
         "api:start": "NODE_ENV=production yarn workspace @tiktofiy/api start",
         "api:build": "yarn workspace @tiktofiy/api build",
-        "api:dev": "NODE_ENV=development yarn workspace @tiktofiy/api dev",
+        "api:dev": "yarn workspace @tiktofiy/api dev",
         "api:cleanup": "yarn workspace @tiktofiy/api cleanup",
         "api:unit": "yarn workspace @tiktofiy/api test:unit"
     },

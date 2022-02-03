@@ -18,6 +18,7 @@ import {
 } from '../utils/errors';
 import { promisify } from 'util';
 import { pipeline } from 'stream';
+import { getConfig } from '../config';
 
 // Configure ffmpeg
 ffmpeg.setFfmpegPath(ffmpegPath.path);
@@ -109,7 +110,7 @@ export const recognizeAudio = async (
             headers: {
                 'content-type': 'text/plain',
                 'x-rapidapi-host': 'shazam.p.rapidapi.com',
-                'x-rapidapi-key': shazamApiKey || process.env.SHAZAM_API_KEY,
+                'x-rapidapi-key': shazamApiKey || getConfig('SHAZAM_API_KEY'),
             },
         });
         if (typeof response.data.track === 'undefined') {
@@ -125,10 +126,8 @@ export const recognizeAudio = async (
             albumImage: response.data.track.images?.background,
         };
     } catch (err) {
-        if (axios.isAxiosError(err)) {
-            if (err.response?.data.message === 'You are not subscribed to this API.') {
-                throw new ShazamApiKeyError(err.response?.data.message);
-            }
+        if (axios.isAxiosError(err) && err.response?.data.message) {
+            throw new ShazamApiKeyError(err.response?.data.message);
         }
 
         throw new ShazamRequestError(

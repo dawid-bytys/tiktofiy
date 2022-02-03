@@ -147,6 +147,6 @@ export class InvalidBodyError extends CustomError {
         super(message);
 
         this.statusCode = 400;
-        Object.setPrototypeOf(this, InvalidUrlFormatError.prototype);
+        Object.setPrototypeOf(this, InvalidBodyError.prototype);
     }
 }
