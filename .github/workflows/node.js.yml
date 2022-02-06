@@ -21,9 +21,9 @@ jobs:
                 username: ${{ secrets.USERNAME }}
                 password: ${{ secrets.PASSWORD }}
                 script: |
-                    mkdir tiktofiy
+                    cd tiktofiy
                     git fetch https://github.com/salvia-dev/tiktofiy.git
-                    yarn install
+                    yarn lerna bootstrap
                     yarn build
                     pm2 delete all
                     pm2 start yarn --name @tiktofiy/api -- api:start
