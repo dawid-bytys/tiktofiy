@@ -1,3 +1,5 @@
+import dotenv from 'dotenv';
+dotenv.config({ path: '.env' });
 import express from 'express';
 import cors from 'cors';
 import { router } from './routes/index';
@@ -12,7 +14,7 @@ const corsOptions = {
     preflightContinue: true,
     methods: ['POST'],
     origin: isNodeEnv('production')
-        ? ['tiktofiy.com', 'www.tiktofiy.com']
+        ? ['https://tiktofiy.com', 'https://www.tiktofiy.com']
         : 'http://localhost:4001',
 };
 

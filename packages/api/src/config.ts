@@ -1,5 +1,3 @@
-import dotenv from 'dotenv';
-dotenv.config({ path: '.env' });
 import type { NodeEnv } from './types';
 
 export const getConfig = (name: string) => {
