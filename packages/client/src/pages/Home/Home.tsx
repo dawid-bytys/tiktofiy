@@ -13,8 +13,6 @@ const BASE_URL =
         ? 'https://api.tiktofiy.com/audio/recognize'
         : 'http://localhost:4000/audio/recognize';
 
-console.log(BASE_URL);
-
 export const Home = () => {
     const [url, setUrl] = useState('');
     const [loading, setLoading] = useState(false);
