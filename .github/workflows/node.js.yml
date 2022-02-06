@@ -15,9 +15,11 @@ jobs:
         steps:
             - uses: actions/checkout@v2
             - name: Login via SSH Key
-              uses: webfactory/ssh-agent@v0.5.4
+              uses: appleboy/ssh-action@master
               with:
-                ssh-private-key: ${{ secrets.SSH_KEY }}
+                host: ${{ secrets.IP_ADDRESS }}
+                username: ${{ secrets.USERNAME }}
+                password: ${{ secrets.PASSWORD }}
             
             - run: git clone https://github.com/salvia-dev/tiktofiy.git
             - run: cd tiktofiy
