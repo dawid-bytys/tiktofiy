@@ -12,11 +12,10 @@ export const getConfig = (name: string) => {
     return '';
 };
 
-export const origin = {
-    origin:
-        getConfig('NODE_ENV') === 'production'
-            ? ['tiktofiy.com', 'www.tiktofiy.com']
-            : 'http://localhost:4001',
-};
-
 export const isNodeEnv = (env: NodeEnv) => getConfig('NODE_ENV') === env;
+
+export const origin = {
+    origin: isNodeEnv('production')
+        ? ['tiktofiy.com', 'www.tiktofiy.com']
+        : 'http://localhost:4001',
+};
