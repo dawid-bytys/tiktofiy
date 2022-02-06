@@ -10,9 +10,6 @@ export const app = express();
 
 const PORT = getConfig('PORT');
 const corsOptions = {
-    credentials: true,
-    preflightContinue: true,
-    methods: ['POST'],
     origin: isNodeEnv('production')
         ? ['https://tiktofiy.com', 'https://www.tiktofiy.com']
         : 'http://localhost:4001',
