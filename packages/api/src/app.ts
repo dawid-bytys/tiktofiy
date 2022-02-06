@@ -19,7 +19,7 @@ if (!isNodeEnv('testing')) {
         console.log(`Listening on PORT ${PORT}`);
     });
 
-    server.on('error', err => console.error(err));
+    server.on('error', () => console.error);
 
     const serverShutdown = () => {
         console.log('Closing server gracefully...');
