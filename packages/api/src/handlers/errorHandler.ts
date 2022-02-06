@@ -1,6 +1,6 @@
 import type { NextFunction, Response, Request } from 'express';
 import { isNodeEnv } from '../config';
-import { CustomError } from '../utils/errors';
+import { CustomError } from '../errors';
 
 export const errorMiddleware = (
     err: unknown,

@@ -1,7 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config({ path: '.env' });
-
-type NodeEnv = 'production' | 'development' | 'testing';
+import type { NodeEnv } from './types';
 
 export const getConfig = (name: string) => {
     const value = process.env[name];

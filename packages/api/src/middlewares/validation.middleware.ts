@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from 'express';
 import type { Schema } from 'joi';
-import { InvalidBodyError } from '../utils/errors';
+import { InvalidBodyError } from '../errors';
 
 export const validateBodySchema =
     (schema: Schema) => (req: Request, _res: Response, next: NextFunction) => {

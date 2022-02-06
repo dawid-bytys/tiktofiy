@@ -4,8 +4,8 @@ import fs from 'fs';
 import axios from 'axios';
 import fetch from 'node-fetch';
 import type { RecognitionResult } from '@tiktofiy/common';
-import { getTikTokID, returnPath } from '../utils/utils';
-import { SHAZAM_API_URL, TIKTOK_API_URL } from '../utils/constants';
+import { getTikTokID, returnPath } from '../utils';
+import { SHAZAM_API_URL, TIKTOK_API_URL } from '../constants';
 import {
     AudioConvertError,
     AudioCutError,
@@ -15,10 +15,11 @@ import {
     ShazamRequestError,
     TikTokRequestError,
     TikTokUnavailableError,
-} from '../utils/errors';
+} from '../errors';
 import { promisify } from 'util';
 import { pipeline } from 'stream';
 import { getConfig } from '../config';
+import type { TikTokMetadata } from '../types';
 
 // Configure ffmpeg
 ffmpeg.setFfmpegPath(ffmpegPath.path);
@@ -38,7 +39,7 @@ export const getTikTokFinalURL = async (url: string) => {
 // User-Agent header is required by TikTok API to perform a successful request
 export const getTikTokAudioURL = async (url: string) => {
     try {
-        const response = await axios.get(url, {
+        const response = await axios.get<TikTokMetadata>(url, {
             headers: {
                 'user-agent':
                     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.99 Safari/537.36',

@@ -1,5 +1,4 @@
 import crypto from 'crypto';
-import moment from 'moment';
 import { unlink } from 'fs/promises';
 import { ClearMediaError } from './errors';
 
@@ -21,9 +20,13 @@ export const getTikTokID = (url: string) => {
 
     if (patternOne.test(url)) {
         return url.substring(70, 90);
-    } else if (patternTwo.test(url)) {
+    }
+
+    if (patternTwo.test(url)) {
         return url.split('video/')[1].substring(0, 19);
-    } else if (patternThree.test(url)) {
+    }
+
+    if (patternThree.test(url)) {
         return url.substring(23, 42);
     }
 
@@ -39,8 +42,4 @@ export const clearMedia = async (files: string[]) => {
     } catch (err) {
         throw new ClearMediaError('Failed to clear media');
     }
-};
-
-export const getCurrentTime = () => {
-    return moment(new Date()).format('YYYY-MM-DD HH:MM:SS');
 };

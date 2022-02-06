@@ -1,6 +1,6 @@
 import type { AudioFound } from '@tiktofiy/common';
 import { prisma } from '../db';
-import { PrismaError } from '../utils/errors';
+import { PrismaError } from '../errors';
 
 export const getStoredTiktok = async (url: string) => {
     try {

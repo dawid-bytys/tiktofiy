@@ -12,9 +12,9 @@ import {
 } from '../services/audio.service';
 import { isSongFound } from '@tiktofiy/common';
 import { isNodeEnv } from '../config';
-import { generateRandomString, clearMedia, returnPath } from '../utils/utils';
+import { generateRandomString, returnPath } from '../utils';
 import { getStoredTiktok, storeTiktok } from '../services/db.service';
-import { InvalidUrlError } from '../utils/errors';
+import { InvalidUrlError } from '../errors';
 
 export const audioRecognition = async (req: Request, res: Response, next: NextFunction) => {
     const { url, shazamApiKey, start, end }: Body = req.body;
@@ -68,7 +68,7 @@ export const audioRecognition = async (req: Request, res: Response, next: NextFu
             });
         }
 
-        await clearMedia([audioFilename, cutAudioFilename, cutConvertedAudioFilename]);
+        //await clearMedia([audioFilename, cutAudioFilename, cutConvertedAudioFilename]);
 
         return res.status(200).send(recognizedAudio);
     } catch (err) {
