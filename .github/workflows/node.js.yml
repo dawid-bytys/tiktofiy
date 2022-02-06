@@ -19,7 +19,7 @@ jobs:
               with:
                 ssh-private-key: ${{ secrets.SSH_KEY }}
             
-            - run: git clone git@github.com:salvia-dev/tiktofiy.git
+            - run: git clone https://github.com/salvia-dev/tiktofiy.git
             - run: cd tiktofiy
             - run: yarn install
             - run: yarn build
