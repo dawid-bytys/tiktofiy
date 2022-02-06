@@ -13,9 +13,3 @@ export const getConfig = (name: string) => {
 };
 
 export const isNodeEnv = (env: NodeEnv) => getConfig('NODE_ENV') === env;
-
-export const origin = {
-    origin: isNodeEnv('production')
-        ? ['tiktofiy.com', 'www.tiktofiy.com']
-        : 'http://localhost:4001',
-};

@@ -2,15 +2,20 @@ import express from 'express';
 import cors from 'cors';
 import { router } from './routes/index';
 import { errorMiddleware } from './handlers/errorHandler';
-import { getConfig, isNodeEnv, origin } from './config';
+import { getConfig, isNodeEnv } from './config';
 
 export const app = express();
 
 const PORT = getConfig('PORT');
+const corsOptions = {
+    origin: isNodeEnv('production')
+        ? ['tiktofiy.com', 'www.tiktofiy.com']
+        : 'http://localhost:4001',
+};
 
 // Server configuration
 app.use(express.json());
-app.use(cors(origin));
+app.use(cors(corsOptions));
 app.use(router);
 app.use(errorMiddleware);
 
