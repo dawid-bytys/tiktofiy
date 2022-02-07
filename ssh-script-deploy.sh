@@ -1,24 +1,25 @@
 #!/bin/bash
+source ~/.profile
 set -e
 
 cd tiktofiy
-echo "Pulling from the server…"
+echo "⌛ Pulling from the server…"
 git fetch origin
 
 if git diff --quiet remotes/origin/master; then
-  echo "Up to date; nothing to do!"
+  echo "✅ Up to date; nothing to do!"
   exit
 fi
 
 git pull origin master
 
-echo "Installing deps…"
+echo "⌛ Installing deps…"
 yarn lerna bootstrap
 
-echo "Bulding…"
+echo "⌛ Bulding…"
 yarn build
 
-echo "Restarting the server…"
+echo "⌛ Restarting the server…"
 pm2 restart all
 
-echo "Done!"
+echo "✅ Done!"
