@@ -1,12 +1,11 @@
 #!/bin/bash
-source ~/.bash_profile
 set -e
 
 cd tiktofiy
 echo "Pulling from the server…"
 git fetch origin
 
-if git diff --quiet remotes/origin/main; then
+if git diff --quiet remotes/origin/master; then
   echo "Up to date; nothing to do!"
   exit
 fi
