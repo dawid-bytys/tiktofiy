@@ -26,14 +26,20 @@ ffmpeg.setFfmpegPath(ffmpegPath.path);
 
 // Using node-fetch here because on Linux axios does not work as expected
 export const getTikTokFinalURL = async (url: string) => {
-    const response = await fetch(url);
+    try {
+        const response = await fetch(url);
 
-    const tiktokId = getTikTokID(response.url);
-    if (!tiktokId) {
-        throw new InvalidUrlFormatError('Provide a valid format of TikTok url');
+        const tiktokId = getTikTokID(response.url);
+        if (!tiktokId) {
+            throw new InvalidUrlFormatError('Provide a valid format of TikTok url');
+        }
+
+        return TIKTOK_API_URL + tiktokId;
+    } catch (err) {
+        throw new TikTokRequestError(
+            'Something went wrong while performing the TikTok request, try again',
+        );
     }
-
-    return TIKTOK_API_URL + tiktokId;
 };
 
 // User-Agent header is required by TikTok API to perform a successful request
@@ -49,7 +55,7 @@ export const getTikTokAudioURL = async (url: string) => {
             throw new TikTokUnavailableError('Provided TikTok is currently not available');
         }
 
-        return response.data.itemInfo.itemStruct.music.playUrl as string;
+        return response.data.itemInfo.itemStruct.music.playUrl;
     } catch (err) {
         throw new TikTokRequestError(
             'Something went wrong while performing the TikTok request, try again',
