@@ -46,7 +46,7 @@ export const getTikTokAudioURL = async (url: string) => {
             },
         });
         if (response.data.statusCode === 10217) {
-            throw new TikTokUnavailableError('Provided TikTok is not currently available');
+            throw new TikTokUnavailableError('Provided TikTok is currently not available');
         }
 
         return response.data.itemInfo.itemStruct.music.playUrl as string;
