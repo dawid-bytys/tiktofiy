@@ -12,7 +12,7 @@ import {
 } from '../services/audio.service';
 import { isSongFound } from '@tiktofiy/common';
 import { isNodeEnv } from '../config';
-import { generateRandomString, returnPath } from '../utils';
+import { clearMedia, generateRandomString, returnPath } from '../utils';
 import { getStoredTiktok, storeTiktok } from '../services/db.service';
 import { InvalidUrlError } from '../errors';
 
@@ -45,9 +45,9 @@ export const audioRecognition = async (req: Request, res: Response, next: NextFu
         */
 
         // xD
-        const [audioFilename, cutAudioFilename, cutConvertedAudioFilename]: string[] = new Array(3)
+        const [audioFilename, cutAudioFilename, cutConvertedAudioFilename] = new Array(3)
             .fill(null)
-            .map(() => generateRandomString(16));
+            .map(() => generateRandomString(16)) as [string, string, string];
 
         await downloadAudio(audioUrl, audioFilename);
         await cutAudio(audioFilename, cutAudioFilename, start, end);
@@ -68,7 +68,7 @@ export const audioRecognition = async (req: Request, res: Response, next: NextFu
             });
         }
 
-        //await clearMedia([audioFilename, cutAudioFilename, cutConvertedAudioFilename]);
+        await clearMedia([audioFilename, cutAudioFilename, cutConvertedAudioFilename]);
 
         return res.status(200).send(recognizedAudio);
     } catch (err) {
