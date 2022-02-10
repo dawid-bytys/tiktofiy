@@ -35,26 +35,18 @@ Live: https://tiktofiy.com
 yarn install
 ```
 
-3. Next, let lerna bootstrap your packages with
-
-```bash
-yarn bootstrap
-```
-
-4. After that, `cd` into `api` package and let Prisma generate all for your database, in MongoDB you don't need to migrate, just run
-
-```bash
-yarn prisma generate
-```
-
-5. Finally, `cd` go back to the root level of the repo and run the following commands one by one
+3. Finally, run the following commands one by one
 
 ```bash
 yarn build
 ```
 
 ```bash
-yarn start
+yarn api:start
+```
+
+```bash
+yarn client:start
 ```
 
 At this point, you are ready to go! Your app is now running! Make your life easier with Tiktofiy!
