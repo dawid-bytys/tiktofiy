@@ -19,7 +19,7 @@ import {
 import { promisify } from 'util';
 import { pipeline } from 'stream';
 import { getConfig } from '../config';
-import type { TikTokMetadata } from '../types';
+import type { ShazamResponse, TikTokMetadata } from '../types';
 
 // Configure ffmpeg
 ffmpeg.setFfmpegPath(ffmpegPath.path);
@@ -112,7 +112,7 @@ export const recognizeAudio = async (
   shazamApiKey?: string,
 ): Promise<RecognitionResult> => {
   try {
-    const response = await axios.post(SHAZAM_API_URL, audio, {
+    const response = await axios.post<ShazamResponse>(SHAZAM_API_URL, audio, {
       headers: {
         'content-type': 'text/plain',
         'x-rapidapi-host': 'shazam.p.rapidapi.com',
@@ -129,7 +129,7 @@ export const recognizeAudio = async (
       found: true,
       artist: response.data.track.subtitle,
       title: response.data.track.title,
-      albumImage: response.data.track.images?.background,
+      albumImage: response.data.track.images.background,
     };
   } catch (err) {
     if (axios.isAxiosError(err) && err.response?.data.message) {

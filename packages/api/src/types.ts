@@ -154,3 +154,178 @@ interface ShareMeta {
 }
 
 export type NodeEnv = 'production' | 'development' | 'testing';
+
+export type ShazamResponse = Readonly<{
+  matches: Match[];
+  timestamp: number;
+  timezone: string;
+  tagid: string;
+  track?: Track;
+}>;
+
+type Match = Readonly<{
+  id: string;
+  offset: number;
+  channel: string;
+  timeskew: number;
+  frequencyskew: number;
+}>;
+
+type Track = Readonly<{
+  layout: string;
+  type: string;
+  key: string;
+  title: string;
+  subtitle: string;
+  images: TrackImages;
+  share: Share;
+  hub: Hub;
+  url: string;
+  artists: Artist[];
+  isrc: string;
+  genres: Genres;
+  urlparams: Urlparams;
+  myshazam: Myshazam;
+  albumadamid: string;
+  sections: Section[];
+}>;
+
+interface Artist {
+  readonly id: string;
+  readonly adamid: string;
+}
+
+interface Genres {
+  readonly primary: string;
+}
+
+type Hub = Readonly<{
+  type: string;
+  image: string;
+  actions: HubAction[];
+  options: Option[];
+  providers: Provider[];
+  explicit: boolean;
+  displayname: string;
+}>;
+
+type HubAction = Readonly<{
+  name?: string;
+  type: string;
+  id?: string;
+  uri?: string;
+  share?: Share;
+}>;
+
+type Share = Readonly<{
+  subject: string;
+  text: string;
+  href: string;
+  image: string;
+  twitter: string;
+  html: string;
+  avatar: string;
+  snapchat: string;
+}>;
+
+type Option = Readonly<{
+  caption: string;
+  actions: HubAction[];
+  beacondata: OptionBeacondata;
+  image: string;
+  type: string;
+  listcaption: string;
+  overflowimage: string;
+  colouroverflowimage: boolean;
+  providername: string;
+}>;
+
+interface OptionBeacondata {
+  readonly type: string;
+  readonly providername: string;
+}
+
+type Provider = Readonly<{
+  caption: string;
+  images: ProviderImages;
+  actions: HubAction[];
+  type: string;
+}>;
+
+interface ProviderImages {
+  readonly overflow: string;
+  readonly default: string;
+}
+
+type TrackImages = Readonly<{
+  background: string;
+  coverart: string;
+  coverarthq: string;
+  joecolor: string;
+}>;
+
+interface Myshazam {
+  readonly apple: Apple;
+}
+
+interface Apple {
+  readonly actions: HubAction[];
+}
+
+type Section = Readonly<{
+  type: string;
+  metapages?: Metapage[];
+  tabname: string;
+  metadata?: Metadatum[];
+  text?: string[];
+  footer?: string;
+  beacondata?: SectionBeacondata;
+  youtubeurl?: Youtubeurl;
+  avatar?: string;
+  id?: string;
+  name?: string;
+  verified?: boolean;
+  actions?: SectionAction[];
+}>;
+
+interface SectionAction {
+  readonly type: string;
+  readonly id: string;
+}
+
+interface SectionBeacondata {
+  readonly lyricsid: string;
+  readonly providername: string;
+  readonly commontrackid: string;
+}
+
+interface Metadatum {
+  readonly title: string;
+  readonly text: string;
+}
+
+interface Metapage {
+  readonly image: string;
+  readonly caption: string;
+}
+
+interface Youtubeurl {
+  readonly caption: string;
+  readonly image: Image;
+  readonly actions: HubAction[];
+}
+
+interface Image {
+  readonly dimensions: Dimensions;
+  readonly url: string;
+}
+
+interface Dimensions {
+  readonly width: number;
+  readonly height: number;
+}
+
+interface Urlparams {
+  readonly '{tracktitle}': string;
+  readonly '{trackartist}': string;
+}
