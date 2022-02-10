@@ -26,20 +26,20 @@ ffmpeg.setFfmpegPath(ffmpegPath.path);
 
 // Using node-fetch here because on Linux axios does not work as expected
 export const getTikTokFinalURL = async (url: string) => {
-    try {
-        const response = await fetch(url);
-
-        const tiktokId = getTikTokID(response.url);
-        if (!tiktokId) {
-            throw new InvalidUrlFormatError('Provide a valid format of TikTok url');
-        }
-
-        return TIKTOK_API_URL + tiktokId;
-    } catch (err) {
+    const response = await fetch(url);
+    if (response.status !== 200) {
         throw new TikTokRequestError(
             'Something went wrong while performing the TikTok request, try again',
         );
     }
+
+    console.log(response.url);
+    const tiktokId = getTikTokID(response.url);
+    if (!tiktokId) {
+        throw new InvalidUrlFormatError('Provide a valid format of TikTok url');
+    }
+
+    return TIKTOK_API_URL + tiktokId;
 };
 
 // User-Agent header is required by TikTok API to perform a successful request
