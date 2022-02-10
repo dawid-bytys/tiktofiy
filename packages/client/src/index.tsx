@@ -10,12 +10,12 @@ import { persistStore } from 'redux-persist';
 const persistor = persistStore(store);
 
 ReactDOM.render(
-    <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-            <React.StrictMode>
-                <App />
-            </React.StrictMode>
-        </PersistGate>
-    </Provider>,
-    document.getElementById('root'),
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </PersistGate>
+  </Provider>,
+  document.getElementById('root'),
 );

@@ -1,9 +1,9 @@
 {
-    "extends": "../../tsconfig",
-    "compilerOptions": {
-        "typeRoots": ["./node_modules/@types", "./typings"],
-        "types": ["@types/jest"],
-        "outDir": "dist"
-    },
-    "exclude": ["dist", "./index.js"]
+  "extends": "../../tsconfig",
+  "compilerOptions": {
+    "typeRoots": ["./node_modules/@types", "./typings"],
+    "types": ["@types/jest"],
+    "outDir": "dist"
+  },
+  "exclude": ["dist", "./index.js"]
 }

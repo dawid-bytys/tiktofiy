@@ -1,18 +1,18 @@
 // Center horizontally
 @mixin flex-jc-c {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 // Center vertically
 @mixin flex-ai-c {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 // Center horizontally and vertically
 @mixin flex-jc-ai-c {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

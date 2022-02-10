@@ -3,11 +3,11 @@ import type { Schema } from 'joi';
 import { InvalidBodyError } from '../errors';
 
 export const validateBodySchema =
-    (schema: Schema) => (req: Request, _res: Response, next: NextFunction) => {
-        const validationResult = schema.validate(req.body);
-        if (validationResult.error) {
-            return next(new InvalidBodyError('Invalid body has been provided'));
-        }
+  (schema: Schema) => (req: Request, _res: Response, next: NextFunction) => {
+    const validationResult = schema.validate(req.body);
+    if (validationResult.error) {
+      return next(new InvalidBodyError('Invalid body has been provided'));
+    }
 
-        return next();
-    };
+    return next();
+  };

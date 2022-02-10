@@ -1,87 +1,87 @@
 @use '../../scss' as *;
 
 .header {
-    display: flex;
-    flex-direction: column;
-    padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  padding: 2.5rem;
 
-    @media only screen and (min-width: 61rem) {
-        padding: 3.5rem;
-    }
+  @media only screen and (min-width: 61rem) {
+    padding: 3.5rem;
+  }
 
-    @media only screen and (min-width: 106rem) {
-        padding: 6rem;
-    }
+  @media only screen and (min-width: 106rem) {
+    padding: 6rem;
+  }
 }
 
 .headerUpper {
-    @include flex-jc-ai-c;
+  @include flex-jc-ai-c;
 
-    height: 5rem;
+  height: 5rem;
 
-    @media only screen and (min-width: 61rem) {
-        height: 6rem;
-    }
+  @media only screen and (min-width: 61rem) {
+    height: 6rem;
+  }
 
-    @media only screen and (min-width: 106rem) {
-        height: 8rem;
-    }
+  @media only screen and (min-width: 106rem) {
+    height: 8rem;
+  }
 }
 
 .logo {
-    width: auto;
-    height: 100%;
+  width: auto;
+  height: 100%;
 
-    & > g {
-        fill: var(--color-primary);
-    }
+  & > g {
+    fill: var(--color-primary);
+  }
 }
 
 .title {
-    font-family: RobotoMono-Medium, sans-serif;
-    font-size: 2rem;
-    padding-left: 2rem;
+  font-family: RobotoMono-Medium, sans-serif;
+  font-size: 2rem;
+  padding-left: 2rem;
 
-    @media only screen and (min-width: 61rem) {
-        font-size: 2.5rem;
-    }
+  @media only screen and (min-width: 61rem) {
+    font-size: 2.5rem;
+  }
 
-    @media only screen and (min-width: 106rem) {
-        font-size: 4rem;
-    }
+  @media only screen and (min-width: 106rem) {
+    font-size: 4rem;
+  }
 }
 
 .navigation {
-    @include flex-jc-ai-c;
+  @include flex-jc-ai-c;
 
-    height: 2rem;
+  height: 2rem;
 
-    @media only screen and (min-width: 106rem) {
-        height: 2.2rem;
-        margin-top: 1rem;
-    }
+  @media only screen and (min-width: 106rem) {
+    height: 2.2rem;
+    margin-top: 1rem;
+  }
 }
 
 .link,
 .themeBtn {
-    @include flex-jc-ai-c;
+  @include flex-jc-ai-c;
 
-    height: 100%;
-    padding: 0.4rem;
-    margin-right: 1rem;
+  height: 100%;
+  padding: 0.4rem;
+  margin-right: 1rem;
 }
 
 .themeBtn {
-    margin: 0;
+  margin: 0;
 }
 
 .linkActive .icon {
-    color: var(--color-sub-active);
+  color: var(--color-sub-active);
 }
 
 .icon {
-    color: var(--color-sub);
-    width: auto;
-    height: 100%;
-    transition: color 200ms ease-in-out;
+  color: var(--color-sub);
+  width: auto;
+  height: 100%;
+  transition: color 200ms ease-in-out;
 }

@@ -3,20 +3,20 @@ import { isNodeEnv } from '../config';
 import { CustomError } from '../errors';
 
 export const errorMiddleware = (
-    err: unknown,
-    _req: Request,
-    res: Response,
-    _next: NextFunction,
+  err: unknown,
+  _req: Request,
+  res: Response,
+  _next: NextFunction,
 ) => {
-    if (!isNodeEnv('testing')) {
-        console.error(err);
-    }
+  if (!isNodeEnv('testing')) {
+    console.error(err);
+  }
 
-    if (err instanceof CustomError) {
-        return res.status(err.statusCode).send({ message: err.message });
-    }
+  if (err instanceof CustomError) {
+    return res.status(err.statusCode).send({ message: err.message });
+  }
 
-    return res.status(500).send({
-        message: 'An unexpected error has occured',
-    });
+  return res.status(500).send({
+    message: 'An unexpected error has occured',
+  });
 };

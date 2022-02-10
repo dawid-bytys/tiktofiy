@@ -1,42 +1,42 @@
 {
-    "name": "@tiktofiy/api",
-    "version": "1.0.0",
-    "main": "index.js",
-    "license": "MIT",
-    "scripts": {
-        "start": "NODE_ENV=production node .",
-        "dev": "NODE_ENV=development nodemon ./src/app.ts",
-        "build": "tsc",
-        "cleanup": "rm -rf dist",
-        "test": "NODE_ENV=testing jest",
-        "test:unit": "NODE_ENV=testing jest --watchAll ./src/utils/utils.spec.ts",
-        "test:db": "NODE_ENV=testing jest --watchAll ./src/services/db.service.spec.ts"
-    },
-    "dependencies": {
-        "@ffmpeg-installer/ffmpeg": "^1.1.0",
-        "@prisma/client": "^3.8.1",
-        "@tiktofiy/common": "^1.0.0",
-        "cors": "^2.8.5",
-        "crypto": "^1.0.1",
-        "express": "^4.17.2",
-        "fluent-ffmpeg": "^2.1.2",
-        "joi": "^17.6.0",
-        "node-fetch": "2.6.1",
-        "path": "^0.12.7",
-        "prisma": "^3.8.1",
-        "valid-url": "^1.0.9"
-    },
-    "devDependencies": {
-        "@types/cors": "^2.8.12",
-        "@types/dotenv": "^8.2.0",
-        "@types/express": "^4.17.13",
-        "@types/fluent-ffmpeg": "^2.1.20",
-        "@types/node-fetch": "2.5.10",
-        "@types/supertest": "^2.0.11",
-        "@types/valid-url": "^1.0.3",
-        "nodemon": "^2.0.15",
-        "supertest": "^6.2.2",
-        "ts-jest": "^27.1.3",
-        "ts-node": "^10.4.0"
-    }
+  "name": "@tiktofiy/api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "NODE_ENV=production node .",
+    "dev": "NODE_ENV=development nodemon ./src/app.ts",
+    "build": "tsc",
+    "cleanup": "rm -rf dist",
+    "test": "NODE_ENV=testing jest",
+    "test:unit": "NODE_ENV=testing jest --watchAll ./src/utils/utils.spec.ts",
+    "test:db": "NODE_ENV=testing jest --watchAll ./src/services/db.service.spec.ts"
+  },
+  "dependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
+    "@prisma/client": "^3.8.1",
+    "@tiktofiy/common": "^1.0.0",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "express": "^4.17.2",
+    "fluent-ffmpeg": "^2.1.2",
+    "joi": "^17.6.0",
+    "node-fetch": "2.6.1",
+    "path": "^0.12.7",
+    "prisma": "^3.8.1",
+    "valid-url": "^1.0.9"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.12",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.13",
+    "@types/fluent-ffmpeg": "^2.1.20",
+    "@types/node-fetch": "2.5.10",
+    "@types/supertest": "^2.0.11",
+    "@types/valid-url": "^1.0.3",
+    "nodemon": "^2.0.15",
+    "supertest": "^6.2.2",
+    "ts-jest": "^27.1.3",
+    "ts-node": "^10.4.0"
+  }
 }

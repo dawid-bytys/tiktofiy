@@ -1,9 +1,9 @@
 {
-    "name": "@tiktofiy/common",
-    "version": "1.0.0",
-    "license": "MIT",
-    "main": "./dist/utils.js",
-    "scripts": {
-        "build": "tsc"
-    }
+  "name": "@tiktofiy/common",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "./dist/utils.js",
+  "scripts": {
+    "build": "tsc"
+  }
 }
