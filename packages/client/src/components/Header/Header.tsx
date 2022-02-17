@@ -25,6 +25,7 @@ export const Header = () => {
           className={
             currentPage === 'home' ? `${styles.link} ${styles.linkActive}` : `${styles.link}`
           }
+          aria-label="Home"
         >
           <FiHome className={styles.icon} />
         </Link>
@@ -33,10 +34,15 @@ export const Header = () => {
           className={
             currentPage === 'settings' ? `${styles.link} ${styles.linkActive}` : `${styles.link}`
           }
+          aria-label="Settings"
         >
           <FiSettings className={styles.icon} />
         </Link>
-        <button className={styles.themeBtn} onClick={() => dispatch(toggleThemeWindow(true))}>
+        <button
+          className={styles.themeBtn}
+          onClick={() => dispatch(toggleThemeWindow(true))}
+          aria-label="Toggle theme window"
+        >
           <RiPaletteLine className={styles.icon} />
         </button>
       </nav>

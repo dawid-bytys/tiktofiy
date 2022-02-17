@@ -18,6 +18,10 @@ export interface Body {
   readonly end: string;
 }
 
+type Writeable<T> = { -readonly [P in keyof T]: T[P] };
+
+export type WriteableSettings = Writeable<Settings>;
+
 export type Settings = Omit<Body, 'url'>;
 
 export const isSongFound = (song: RecognitionResult): song is AudioFound => {

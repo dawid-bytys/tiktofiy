@@ -39,6 +39,7 @@ export const Themes = () => {
               onMouseEnter={handleEnter}
               onMouseLeave={handleLeave}
               onClick={handleClick}
+              aria-label="Change theme"
             >
               {item}
             </button>

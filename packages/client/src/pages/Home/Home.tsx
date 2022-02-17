@@ -60,7 +60,7 @@ export const Home = () => {
           placeholder="Paste a TikTok url..."
           onChange={handleChange}
         />
-        <button type="submit" className={styles.submitBtn}>
+        <button type="submit" className={styles.submitBtn} aria-label="Submit">
           Find a song
         </button>
       </form>

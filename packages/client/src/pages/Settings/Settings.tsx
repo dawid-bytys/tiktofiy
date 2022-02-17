@@ -1,21 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Settings.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectSettings } from '../../redux/store';
 import { setSettings } from '../../redux/slices/settingsSlice';
+import type { WriteableSettings } from '@tiktofiy/common';
+import { useDebounce } from '../../hooks/useDebounce';
 
 export const Settings = () => {
-  const dispatch = useDispatch();
   const userSettings = useSelector(selectSettings);
+  const [settingsValue, setSettingsValue] = useState<WriteableSettings>(userSettings);
+  const debouncedSettings = useDebounce<WriteableSettings>(settingsValue);
+  const dispatch = useDispatch();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(
-      setSettings({
-        ...userSettings,
-        [e.currentTarget.name]: e.currentTarget.value,
-      }),
-    );
+    setSettingsValue({
+      ...userSettings,
+      [e.currentTarget.name]: e.currentTarget.value,
+    });
   };
+
+  useEffect(() => {
+    dispatch(setSettings(debouncedSettings));
+  }, [debouncedSettings]);
 
   return (
     <main className={styles.settings}>
