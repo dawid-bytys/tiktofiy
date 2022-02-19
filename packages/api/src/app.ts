@@ -3,7 +3,7 @@ dotenv.config({ path: '.env' });
 import express from 'express';
 import cors from 'cors';
 import { router } from './routes/index';
-import { errorMiddleware } from './handlers/errorHandler';
+import { errorHandler } from './handlers/errorHandler';
 import { getConfig, isNodeEnv } from './config';
 
 export const app = express();
@@ -19,7 +19,7 @@ const corsOptions = {
 app.use(express.json());
 app.use(cors(corsOptions));
 app.use(router);
-app.use(errorMiddleware);
+app.use(errorHandler);
 
 if (!isNodeEnv('testing')) {
   const server = app.listen(PORT, () => {
