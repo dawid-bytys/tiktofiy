@@ -125,7 +125,7 @@
   width: auto;
   height: auto;
 
-  g {
+  & > g {
     fill: var(--color-sub);
   }
 }
