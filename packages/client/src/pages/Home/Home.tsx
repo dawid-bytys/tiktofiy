@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { selectSettings } from '../../redux/store';
 import type { RecognitionResult } from '@tiktofiy/common';
 import { isSongFound } from '@tiktofiy/common';
+import { ReactComponent as ListenOnSpotify } from '../../assets/svg/spotify.svg';
 
 const BASE_URL =
   process.env.NODE_ENV === 'production'
@@ -80,6 +81,11 @@ export const Home = () => {
               <p className={styles.song}>
                 {audio.artist} - {audio.title}
               </p>
+              {audio.spotify && (
+                <a href={audio.spotify} rel="noreferrer noopener" className={styles.spotifyLink}>
+                  <ListenOnSpotify className={styles.spotifyImage} />
+                </a>
+              )}
             </>
           )}
         </div>

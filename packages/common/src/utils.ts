@@ -3,6 +3,7 @@ export interface AudioFound {
   readonly artist: string;
   readonly title: string;
   readonly albumImage?: string;
+  readonly spotify?: string;
 }
 
 interface AudioNotFound {

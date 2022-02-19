@@ -110,7 +110,22 @@
 }
 
 .song {
-  margin-top: 1.5rem;
+  margin: 1.5rem 0 2.5rem 0;
   font-family: RobotoMono-Bold, sans-serif;
   text-align: center;
+}
+
+.spotifyLink {
+  @include flex-jc-ai-c;
+
+  width: 8rem;
+}
+
+.spotifyImage {
+  width: auto;
+  height: auto;
+
+  g {
+    fill: var(--color-sub);
+  }
 }

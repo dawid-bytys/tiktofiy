@@ -112,14 +112,16 @@ export const recognizeAudio = async (
   shazamApiKey?: string,
 ): Promise<RecognitionResult> => {
   try {
-    const response = await axios.post<ShazamResponse>(SHAZAM_API_URL, audio, {
+    const {
+      data: { track },
+    } = await axios.post<ShazamResponse>(SHAZAM_API_URL, audio, {
       headers: {
         'content-type': 'text/plain',
         'x-rapidapi-host': 'shazam.p.rapidapi.com',
         'x-rapidapi-key': shazamApiKey || getConfig('SHAZAM_API_KEY'),
       },
     });
-    if (typeof response.data.track === 'undefined') {
+    if (typeof track === 'undefined') {
       return {
         found: false,
       };
@@ -127,9 +129,10 @@ export const recognizeAudio = async (
 
     return {
       found: true,
-      artist: response.data.track.subtitle,
-      title: response.data.track.title,
-      albumImage: response.data.track.images.background,
+      artist: track.subtitle,
+      title: track.title,
+      albumImage: track.images.background,
+      spotify: track.hub.providers.find(x => x.type === 'SPOTIFY')?.actions[0].uri,
     };
   } catch (err) {
     if (axios.isAxiosError(err) && err.response?.data.message) {
