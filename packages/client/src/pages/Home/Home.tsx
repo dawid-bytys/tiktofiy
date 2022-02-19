@@ -1,51 +1,22 @@
-import React, { useState } from 'react';
 import styles from './Home.module.scss';
-import axios from 'axios';
+import { useState } from 'react';
 import { File } from 'react-kawaii';
 import { Error } from '../../utils/grabber';
-import { useSelector } from 'react-redux';
-import { selectSettings } from '../../redux/store';
-import type { RecognitionResult } from '@tiktofiy/common';
 import { isSongFound } from '@tiktofiy/common';
 import { ReactComponent as ListenOnSpotify } from '../../assets/svg/spotify.svg';
-
-const BASE_URL =
-  process.env.NODE_ENV === 'production'
-    ? 'https://api.tiktofiy.com/audio/recognize'
-    : 'http://localhost:4000/audio/recognize';
+import { useAudio } from '../../hooks/useAudio';
 
 export const Home = () => {
   const [url, setUrl] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [audio, setAudio] = useState<RecognitionResult | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  const userSettings = useSelector(selectSettings);
+  const { audio, error, loading, recognizeAudio } = useAudio();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUrl(e.target.value);
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    setError(null);
-    setLoading(true);
-
-    try {
-      const response = await axios.post<RecognitionResult>(BASE_URL, {
-        url: url,
-        ...userSettings,
-      });
-
-      setAudio(response.data);
-    } catch (err) {
-      if (axios.isAxiosError(err)) {
-        setError(err.response?.data.message || 'Something went wrong with the server connection');
-      }
-    } finally {
-      setLoading(false);
-    }
+    recognizeAudio(url);
   };
 
   return (
