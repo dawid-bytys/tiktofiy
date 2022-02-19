@@ -131,7 +131,7 @@ export const recognizeAudio = async (
       found: true,
       artist: track.subtitle,
       title: track.title,
-      albumImage: track.images.background,
+      albumImage: track.images?.background,
       spotify: track.hub.providers.find(x => x.type === 'SPOTIFY')?.actions[0].uri,
     };
   } catch (err) {

@@ -177,7 +177,7 @@ type Track = Readonly<{
   key: string;
   title: string;
   subtitle: string;
-  images: TrackImages;
+  images?: TrackImages;
   share: Share;
   hub: Hub;
   url: string;
