@@ -8,7 +8,7 @@ import { useAudio } from '../../hooks/useAudio';
 
 export const Home = () => {
   const [url, setUrl] = useState('');
-  const { audio, error, loading, recognizeAudio } = useAudio();
+  const { state, recognizeAudio } = useAudio();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUrl(e.target.value);
@@ -21,9 +21,11 @@ export const Home = () => {
 
   return (
     <main className={styles.home}>
-      {error && <Error message={error} />}
+      {state.status === 'error' && <Error message={state.error} />}
       <form
-        className={loading ? `${styles.form} ${styles.formDisabled}` : `${styles.form}`}
+        className={
+          state.status === 'loading' ? `${styles.form} ${styles.formDisabled}` : `${styles.form}`
+        }
         onSubmit={handleSubmit}
       >
         <input
@@ -36,24 +38,30 @@ export const Home = () => {
           Find a song
         </button>
       </form>
-      {audio ? (
+      {state.status === 'success' ? (
         <div
-          className={isSongFound(audio) ? `${styles.resultsFound}` : `${styles.resultsNotFound}`}
+          className={
+            isSongFound(state.data) ? `${styles.resultsFound}` : `${styles.resultsNotFound}`
+          }
         >
-          {!isSongFound(audio) && <File size={70} mood="ko" color="#f6f0e9" />}
+          {!isSongFound(state.data) && <File size={70} mood="ko" color="#f6f0e9" />}
           <p className={styles.description}>
-            {isSongFound(audio)
+            {isSongFound(state.data)
               ? 'look what we have just found for you:'
               : "sorry, we weren't able to find anything, try again"}
           </p>
-          {isSongFound(audio) && (
+          {isSongFound(state.data) && (
             <>
-              <img src={audio.albumImage} alt="Album" className={styles.album} />
+              <img src={state.data.albumImage} alt="Album" className={styles.album} />
               <p className={styles.song}>
-                {audio.artist} - {audio.title}
+                {state.data.artist} - {state.data.title}
               </p>
-              {audio.spotify && (
-                <a href={audio.spotify} rel="noreferrer noopener" className={styles.spotifyLink}>
+              {state.data.spotify && (
+                <a
+                  href={state.data.spotify}
+                  rel="noreferrer noopener"
+                  className={styles.spotifyLink}
+                >
                   <ListenOnSpotify className={styles.spotifyImage} />
                 </a>
               )}

@@ -6,25 +6,27 @@ import { useSelector } from 'react-redux';
 import { selectSettings } from '../redux/store';
 
 interface UseAudio {
-  audio: RecognitionResult | null;
-  error: string | null;
-  loading: boolean;
+  state: State;
   recognizeAudio: (url: string) => void;
 }
+
+type State =
+  | { status: 'idle' }
+  | { status: 'loading' }
+  | { status: 'error'; error: string }
+  | { status: 'success'; data: RecognitionResult };
 
 /* This hook is not very practical in this project,
  * but I wanted to separate the code as much as possible
  */
 export const useAudio = (): UseAudio => {
-  const [audio, setAudio] = useState<RecognitionResult | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-
+  const [state, setState] = useState<State>({ status: 'idle' });
   const userSettings = useSelector(selectSettings);
 
   const recognizeAudio = async (url: string) => {
-    setError(null);
-    setLoading(true);
+    setState({
+      status: 'loading',
+    });
 
     try {
       const response = await axios.post<RecognitionResult>(BASE_URL, {
@@ -32,15 +34,19 @@ export const useAudio = (): UseAudio => {
         ...userSettings,
       });
 
-      setAudio(response.data);
+      setState({
+        status: 'success',
+        data: response.data,
+      });
     } catch (err) {
       if (axios.isAxiosError(err)) {
-        setError(err.response?.data.message || 'Something went wrong with the server connection');
+        setState({
+          status: 'error',
+          error: err.response?.data.message || 'Something went wrong with the server connection',
+        });
       }
-    } finally {
-      setLoading(false);
     }
   };
 
-  return { audio, error, loading, recognizeAudio };
+  return { state, recognizeAudio };
 };
