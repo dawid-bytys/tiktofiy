@@ -12,7 +12,7 @@ export const getStoredTiktok = async (url: string) => {
 
     return storedTiktok;
   } catch (err) {
-    throw new PrismaError('Something went wrong with databse connection, try again');
+    throw new PrismaError('Something went wrong with database connection, try again');
   }
 };
 
@@ -27,6 +27,6 @@ export const storeTiktok = async (song: Omit<AudioFound, 'found'> & { url: strin
       },
     });
   } catch (err) {
-    throw new PrismaError('Something went wrong with databse connection, try again');
+    throw new PrismaError('Something went wrong with database connection, try again');
   }
 };
